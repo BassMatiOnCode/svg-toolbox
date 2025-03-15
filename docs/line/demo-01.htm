@@ -19,22 +19,25 @@
 </head><body>
 
 <svg id="svgRoot" xmlns="http://www.w3.org/2000/svg" 
-	viewBox="-150 -150 300 300" width="300" height="300" 
+	viewBox="-80 -60 160 130" width="160" height="130" 
 	stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" 
-	style="border:1px solid silver">
+	style="border:1px none silver">
 <title>Line test</title>
-<g id="main">
-	<line id="line-001" x1="-50" y1="50" x2="50" y2="-40" />
-	</g>
+<line id="LineA" x1="-50" y1="50" x2="50" y2="-40" />
 </svg>
 
 <script type="module">
 import { Line } from "../code/line/line.js" ;
-	// Create a Line object from the exising SVG element line-001
-const l1 = new Line( { from: "line-001" } );
-	// Create a new Line object from coordinates	
-const l2 = new Line( { x1: l1.x1+10, y1: l1.y1, x2: l1.x2, y2: l1.y2, attributes: { stroke: "blue" }, options: { injectionTarget: "main" } } );
-	// Move x2 to make the lines parallel at a distance
-l2.x2 += 10 ;
+	// Create a Line wrapper object for the exising SVG element line-001
+	// It does not make sense to provide other attributes since we don't 
+	// create a new SVG line element.
+const lineA = new Line( { from: "LineA" } );
+
+	// Move it to the left
+lineA.x1 -= 10 ;
+lineA.x2 -= 10 ;
+
+	// Create another Line object with slightly changed coordinates
+const lineB = new Line( { x1: lineA.x1+20, y1: lineA.y1, x2: lineA.x2+20, y2: lineA.y2, attributes: { id: "LineB", stroke: "blue" } } );
 </script>
 </body></html>

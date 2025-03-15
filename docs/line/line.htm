@@ -32,16 +32,13 @@
 
 <h2 cbc>Using the Component</h2><div>
 
-<p>The component consists of two files:</p>
+<p>The component consists of a single file:</p>
 
 <ul>
-<li>name.css</li>
-<li>name.js</li>
+<li>path/to/line.js</li>
 </ul>
 
-<p>For detailed notes on how to import these files into a document or aggregation script, refer to <a hef="../component-anatomy.htm#using">WebCAT Component Anatomy</a>.</p>
-
-<p>More information on how to use the module can be found in the <a href="#examples">examples section</a>.</p>
+<p>Use an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import">import</a> statement to import the module and get access to the exported symbols.</p>
 
 <!--h2--Using the Component--></div>
 
@@ -49,96 +46,53 @@
 
 <h3 cbc>Example 1</h3><div>
 
-<p></p>
+<p>The SVG code has a line element defined:</p>
 
-<figure class="listing"><figcaption></figcaption><pre>
+<figure class="listing"><figcaption>SVG code</figcaption><pre>
+&lt;svg id="svgRoot" ... &gt;
+&lt;g id="main"&gt;
+	&lt;line id="LineA" x1="-50" y1="50" x2="50" y2="-40" /&gt;
+	&lt;/g&gt;
+&lt;/svg&gt;
 </pre></figure>
 
-<p>And here is the live demo:</p>
+<p>The first steps create a <tt>Line</tt> wrapper object for this SVG element:</p>
 
-<figure class="demo"><figcaption> (<a href="demo-1.htm" target="_blank">demo-1.htm</a>)</figcaption>
-<iframe class="content-height-observed" src="demo-1.htm"></iframe>
+<figure class="listing"><figcaption></figcaption><pre>
+&lt;script type="module"&gt;
+import { <hi>Line</hi> } from "path/to/line.js" ;
+
+	<cc>// Create a Line wrapper object from the exising SVG element line-001</cc>
+const lineA = new Line( { from: "LineA" } );
+
+	<cc>// Move it to the left</cc>
+lineA.x1 -= 10 ;
+lineA.x2 -= 10 ;
+</pre></figure>
+
+<p>It does not make sense to supply coordinates or attributes if a <tt>from</tt> value is supplied, because no new SVG element is created in this case. Only the coordinate values are extracted.</p>
+
+<p>Setting the coodinates of the <tt>Line</tt> object also moves the related SVG element.</p>
+
+<p>The next instruction creates a new SVG <tt>line</tt> element by using the coordinates of LineA:</p>
+
+<figure class="listing"><figcaption></figcaption><pre>
+	<cc>// Create a copy with slightly changed coordinates</cc>
+const lineB = new Line( { x1: lineA.x1+20, y1: lineA.y1, x2: lineA.x2+20, y2: lineA.y2, attributes: { id: "LineB", stroke: "blue" } } );
+&lt;/script&gt;
+</pre></figure>
+
+<p>The demo:</p>
+
+<figure class="demo"><figcaption> (<a href="demo-01.htm" target="_blank">demo-01.htm</a>)</figcaption>
+<object class="content-height-observed no-border" type="text/html" data="demo-01.htm"></object>
 </figure>
 
 <!--h3--Example 1--></div>
 
 <!--h2--Examples--></div>
 
-<h2 cbc>Module Configuration</h2><div>
-
-<p>Module script parameters are passed in the query string of the import URL, as described in <a href="../component-anatomy.htm#passing-parameters">Anatomy of a WebCAT Component</a>.</p>
-
-<dl>
-<dt></dt><dd>
-	<p></p>
-	</dd>
-</dl>
-
-<!--h2--Module Configuration--></div>
-
-<h2 cbc>Element Attributes</h2><div>
-
-<p>Element attributes are evaluated by the component.</p>
-
-<dl>
-<dt></dt><dd>
-	<p></p>
-	</dd>
-</dl>
-
-<!--h2--Element Attributes--></div>
-
-<h2 cbc>Event Listeners</h2><div>
-
-<p>The component adds an <tt>event-name</tt> listener to the <tt>document</tt> element to provide services to other components. The <tt>CustomEvent.detail</tt> object carries the following members:</p>
-
-<dl>
-<dt></dt><dd>
-	<p>Registered on:</p>
-	<p></p>
-	<p>Event details:</p>
-	<dl>
-	<dt></dt><dd>
-		<p></p>
-		</dd>
-	</dl>
-	</dd>
-</dl>
-
-<!--h2--Event Listeners--></div>
-
-<h2 cbc>Events</h2><div>
-
-<p>The component dispatches the following events:</p>
-
-<dl>
-<dt></dt><dd>
-	<p>Dispatched to: </p>
-	<p>Event details:</p>
-	<dl>
-	<dt></dt><dd>
-		<p></p>
-		</dd>
-	</dl>
-	</dd>
-</dl>
-
-<!--h2--Events--></div>
-
-<h2 cbc>Related Components</h2><div>
-
-<p>This component is related to other WebCAT components:</p>
-
-<dl>
-<dt><a href="..//.htm"></a></dt><dd>
-	<p></p>
-	</dd>
-</dl>
-
-<!--h2--Related Components--></div>
-
 <h2 cbc>Programming Reference</h2><div>
-
 
 <h3 cbc>Constructor</h3><div>
 
@@ -151,7 +105,7 @@
 <dt>x1, y1, x2, y2</dt>
 	<dd>{number | undefined} Coordinates of the start and end point. An undefined value will cause the default value (0) to be used in the SVG element.</dd>
 <dt>from</dt>
-	<dd>{SVGLineElement} A reference to an SVG line element that serves as a blueprint master.</dd>
+	<dd>{SVGLineElement} A reference to an existing SVG line element, for which a wrapper object is created. No new SVG element will be created. Coordinate values, <tt>attributes</tt> and <tt>options</tt> will be ignored.</dd>
 <dt>attributes</dt>
 	<dd>{object} An associative array of name-value pairs, which are used to set attributes on the new SVG element.</dd>
 <dt>options</dt>
