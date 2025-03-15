@@ -1,0 +1,25 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" 
+	viewBox="-150 -220 350 350" width="350" height="350" 
+	stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" 
+	style="border:1px none silver">
+	
+<title>Tangent through point</title>
+
+<style>
+	tspan.sub { font-size: 10px ; baseline-shift : -5px }
+	</style>
+
+<defs>
+	<circle id="pointHollow" r="4" stroke-width="1.2" fill="white" />
+	<circle id="pointSolid" r="3" stroke="none" fill="black" />
+	</defs>
+
+<g id="construction" stroke="grey"></g>
+<g id="main"></g>
+<g id="points"></g>
+<g id="text" font-size="14" stroke="white" stroke-width="3" fill="black" paint-order="stroke fill markers" text-anchor="middle" dominant-baseline="central"></g>
+
+<script href="/inc/webcat/svg/svg-1.js"></script>
+<script href="/inc/webcat/svg/ellipse-1.js"></script>
+<script href="fig-006.js"></script>
+</svg>
