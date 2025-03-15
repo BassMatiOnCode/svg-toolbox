@@ -1,0 +1,18 @@
+﻿<svg id="svgRoot" xmlns="http://www.w3.org/2000/svg" 
+	viewBox="-150 -150 300 300" width="300" height="300" 
+	stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" 
+	style="border:1px none silver">
+
+<title></title>
+
+<script>
+debugger;
+(async ( ) => {
+	const core = await import ( "../code/core/core-1.js" ) ;
+	debugger;
+	const e = core.addSvgElement( "text", { }, { textContent: "Hello, world!" }, { parent: document.getElementById( "svgRoot" ) } );
+	console.log( e );
+	} ) ( ) ;
+</script>
+</svg>
+

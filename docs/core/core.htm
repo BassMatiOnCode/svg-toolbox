@@ -1,0 +1,357 @@
+﻿<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="template-info" file-name="empty.htm" version="2024-12-20" editor="USP" />
+<meta name="author" content="USP" />
+<meta name="creation-date" content="2025-03-14" />
+<meta name="editor" content="USP" />
+<meta name="change-date" content="2025-03-14" />
+<meta name="version" content="1" />
+<meta name="sectionTitle" content="../title.svg" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="all" />
+<link rel="stylesheet" href="/inc/webcat/page-structure/tutorial-page.css" />
+<script type="module" src="/inc/webcat/page-structure/tutorial-page.js" ></script>
+ 
+<meta name="categories" content="Projects > SVG Toolbox" />
+<meta name="tags" content="web, authoring, toolbox, SVG, JavaScript, component, core" />
+<meta name="description" content="" />
+
+<title>Core (SVG-Toolbox > Core)</title>
+
+</head><body>
+
+<h1>Core</h1><p class="subtitle">The most fundamental support functions</p>
+
+<h2 cbc>Introduction</h2><div>
+
+<p>SVG elements can be created with directly inside the SVG container:</p>
+
+<figure class="listing"><figcaption>Two lines</figcaption><pre>
+&lt;svg ... &gt;
+&lt;line x1="-100" y1="-50" x2="+100" y2="+70" />
+&lt;line x1="50" y1="-100" x2="-70" y2="+100" />
+&lt;/svg&gt;
+</pre></figure>
+
+<p>Attribute values cannot hold expressions, they must be simple (constant) values. This makes it difficult to maintain multiple elements with specific relationships to each other &ndash; if one value changes, the others must be re-calculated and changed accordingly. Unfortunately, relationships between elements are not obvious, so a change in a complex drawing might become very difficult.</p>
+
+<p>This is different if the objects are created with JavaScript:</p>
+
+<figure class="listing"><figcaption>Creating lines with addSvgElement()</figcaption><pre>
+import { <hi>addSvgElement</hi> } from "path-to/core.js" ;
+const line1 = addSvgElement( "line", { x1: -100, y1: -50, x2: +100, y2: +70 } ); 
+const line2 = addSvgElement( "line", { x1: -<hi>line1.y1</hi>.baseVal.value, y1: <hi>line1.x1</hi>.baseVal.value, 
+	x2: -<hi>line1.y2</hi>.baseVal.value, y2: <hi>line1.x2</hi>.baseVal.value } );
+</pre></figure>
+
+<p>Here, the second line re-uses the coordinates of the first line to create an instance of the first one, but rotated by 90 degree.</p>
+
+<p>The function <tt>addSvgElement()</tt> is only a thin wrapper for <tt>document.createElementNS()</tt> and returns a reference to the added SVG element.</p>
+
+<figure class="demo"><figcaption>Lines at 90 degree angle (<a href="demo-01.htm" target="_blank">demo-01.htm</a>)</figcaption>
+<object class="content-height-observed no-border" type="text/html" data="demo-01.htm"></object>
+</figure>
+
+<!--h2--Introduction--></div>
+
+
+<h2 cbc>Using the Component</h2><div>
+
+<p>The component consists of a single file:</p>
+
+<ul>
+<li>path/to/core.js</li>
+</ul>
+
+<p>Use an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import">import</a> statement to import the module and get access to the exported symbols.</p>
+
+<!--h2--Using the Component--></div>
+
+<h2 cbc>Examples</h2><div>
+
+<h3 cbc>Example 1: Creating a Text Element</h3><div>
+
+<p>The following example creates a text element:</p>
+
+<figure class="listing"><figcaption>Adding a text element (<a href="demo-02.htm">demo-02.htm</a>)</figcaption><pre>
+&lt;script type="module"&gt;
+	<cc>// Import the module and make addSvgElement() accessible</cc>
+import { <hi>addSvgElement</hi> } from "<hi>path/to/core.js</hi>" ;
+	
+	<cc>// Add a text element to the document</cc>
+addSvgElement( "text", { x: -50, stroke: "green" }, { textContent: "Hello, world!" } );
+&lt;/script&gt;
+</pre></figure>
+
+<p>Note that second parameter supplies the attribute values, and the third parameter supplies the property values. Here, the <tt>textContent</tt> property is set to a string value.</p>
+
+<figure class="demo"><figcaption>Creating text elements (<a href="demo-02.htm" target="_blank">demo-02.htm</a>)</figcaption>
+<object class="content-height-observed no-border" type="text/html" data="demo-02.htm"></object>
+</figure>
+
+<!--h3--Example 1--></div>
+
+<h3 id="example-2" cbc>Example 2: Using the Target Maps</h3><div>
+
+<p>The injection target maps can semi-automatically determine a target element based of the tag name or the href of a use element. Here is an example.</p>
+
+<p>The code above defines two re-usable point elements, a solid point, and a hollow point. They are inside a <tt>defs</tt> container element, which prevents them from being rendered immediately.</p>
+
+<figure class="listing"><figcaption>Defining the document structure</figcaption><pre>
+&lt;svg ... &gt;
+&lt;<hi>defs</hi>&gt;
+	&lt;circle id="solidPoint" r="3" stroke="none" fill="black" /&gt;
+	&lt;circle id="hollowPoint" r="3" stroke="black" fill="white" /&gt;
+	&lt;/defs&gt;
+
+&lt;g id="grid" stroke="silver"&gt;&lt;/g&gt;
+&lt;g id="main" stroke="black"&gt;&lt;/g&gt;
+&lt;g id="points"&gt;&lt;/g&gt;
+&lt;g id="annotations" stroke="white" stroke-width="4" fill="black" paint-order="stroke fill markers"&gt;&lt;/g&gt;
+
+&lt;/svg&gt;
+</pre></figure>
+
+<p>Following that, there are four group elements that are suited for a technical or geometry drawing. The <tt>grid</tt> group contains the background grid with a default <tt>stroke</tt> color of silver. This is followed by the <tt>main</tt> group with a <tt>stroke</tt> color of black, used for the lines and circles of the drawing. The <tt>points</tt> group will get instances of the <tt>solidPoint</tt> and <tt>hollowPoint</tt> elements. They define their own <tt>stroke</tt> and <tt>fill</tt> colors. Finally, there is the <tt>annotations</tt> group which will be the injection target for text elements. This group defines several attributes used for text rendering.</p>
+
+<p>Note that the group attributes are inherited to child elements, so we don't have to repeat them on every single child element.</p>
+
+<p>The next part of code sets up the injectionTarget maps:</p>
+
+<figure class="listing"><figcaption>Setting the injection target maps</figcaption><pre>
+import { setTagnameTargetMap, setHrefTargetMap, addSvgElement } from "path/to/core.js" ;
+setTagnameTargetMap( { line: "main", circle: "main", text: "annotation" } );
+setHrefTargetMap( { "#solidPoint": "points", "#hollowPoint": "points" } );
+</pre></figure>
+
+<p>Note that the maps cannot be set from outside, because they are exported as immutable members of the module.</p>
+
+<p>Then we can create the drawing:</p>
+
+<figure class="listing"><figcaption>Creating the drawing elements</figcaption><pre>
+const x1 = -50 ;
+const y1 = 50 ;
+const x2 = 30 ;
+const y2 = -50 ;
+addSvgElement( "line", { x1: x1, y1: y1, x2: x2, y2: y2 } );
+addSvgElement( "use", { x: x1, y: y1, href:"#hollowPoint" } );
+addSvgElement( "use", { x: x2, y: y2, href:"#hollowPoint" } );
+addSvgElement( "text", { x: x1-15, y: y1 }, { textContent: "P1" } );
+addSvgElement( "text", { x: x2, y: y2-15 }, { textContent: "P2" } );
+</pre></figure>
+
+<p>Note that the coordinates are defined as constants, they are used to define the line ends as well as point and text locations.</p>
+
+<p>Live demo:</p>
+
+<figure class="demo"><figcaption>Using injection target maps (<a href="demo-03.htm">demo-03.htm</a>)</figcaption>
+<object class="content-height-observed no-border" type="text/html" data="demo-03.htm"></object>
+</figure>
+
+<!--h3--Using the Target Maps--></div>
+
+<!--h2--Examples--></div>
+
+<h2 cbc>Programming Reference</h2><div>
+
+<h3 cbc>addSvgElement()</h3><div>
+
+<p>Syntax:</p>
+
+<pre>element = addSvgElement( tagName, attributes={}, properties={}, 
+	{injectionTarget, injectionRefNode, injectionMethod="appendChild"}={} )</pre>
+
+<p>Parameters:</p>
+<dl>
+<dt>tagName</dt>
+	<dd>{string} Tag name of the element, e. g. "line", "circle", "use".</dd>
+<dt>attributes</dt>
+	<dd>{object} Associative array with name-value pairs.</dd>
+	<dd>Attribute names and values depend on the SVG element to be created.</dd>
+<dt>properties</dt>
+	<dd>{object} Associative array with name-value pairs.</dd>
+	<dd>Property names and values depend on the SVG element to be created.</dd>
+<dt>injectionTarget</dt>
+	<dd>{string | object} Specifies the target object for the injection method.</dd>
+	<dd>If undefined, <tt>tagnameTargetMap</tt> and <tt>hrefTargetMap</tt> will be used to determine a suitable injection target element. If that fails, the <tt>svgRoot</tt> element will be used.</dd>
+<dt>injectionMethod</dt>
+	<dd>{string} Name of the method to be use on the injection target object.</dd>
+	<dd>Examples: "appendChild", "insertBefore", "prepend". There is no restriction on the name, so this parameter can be abused to do all kind of things.</dd>
+	<dd>See <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">MDN Element</a> methods for details.</dd>
+<dt>injectionRefNode</dt>
+	<dd>{Node] Some injection methods need an additional reference node, such as "insertBefore".</dd>
+<dt>returns</dt><dd>
+	<p>{ SVGElement } A reference to the added SVG element.</p>
+	</dd>
+</dl>
+
+<!--h3--addSvgElement( )--></div>
+
+<h3 cbc>hrefTargetMap</h3><div>
+
+<p>Used to map href attributes values of <tt>use</tt> elements to injection target objects.</p>
+
+<pre>let hrefTargetMap = { }</pre>
+
+<p>An associative array of name-value pairs. Values are of type {HTMLElement | SVGElement | string} and usually specify an SVG <tt>g</tt> container object.</p>
+
+<!--h3--hrefTargetMap--></div>
+
+<h3 cbc>setAttributes()</h3><div>
+
+<p>Syntax:</p>
+
+<pre>setAttributes( target, attributes = { } )</pre>
+
+<p>Parameters:</p>
+<dl>
+<dt>target</dt>
+	<dd>{HTMLElment | SVGElement} The operation target element.</dd>
+<dt>attributes</dt>
+	<dd>{object} An associative array, providing name-value pairs.</dd>
+	<dd>An undefined value causes the attribute to be removed from the target object.</dd>
+<dt>returns</dt>
+	<dd>{HTMLElment | SVGElement} The target object.</dd>
+</dl>
+
+<p>Example:</p>
+
+<figure class="listing"><figcaption>Setting attributes</figcaption><pre>
+const line = svgRoot.querySelector( "line" );
+setAttributes( line, { x1: 10, x2:20 } );
+</pre></figure>
+
+<!--h3--setAttributes()--></div>
+
+<h3 cbc>setHrefTargetMap()</h3><div>
+
+<p>The function <tt>setHrefTargetMap()</tt> is very similar to <tt>etTagnameTargetMap()</tt>, but is used for SVG <tt>use</tt> elements. Their <tt>href</tt> attribute determines the injectionTarget element.</p>
+
+<p>Syntax:</p>
+
+<pre>function setHrefTargetMap( entries={ } )</pre>
+
+<p>Parameters:</p>
+<dl>
+<dt>entries</dt>
+	<dd>{object} An associative array with name-value pairs.</dd>
+	<dd>The value is a {string | object} type and references the injection injectionTarget element.</dd>
+<dt>returns</dt>
+	<dd>{undefined} </dd>
+</dl>
+
+<p>See <a href="#example-2">example 2</a> for details.</p>
+
+<!--h3--setHrefTargetMap()--></div>
+
+<h3 cbc>setProperties()</h3><div>
+
+<p>Syntax:</p>
+
+<pre>setProperties( target, properties = { } )</pre>
+
+<p>Parameters:</p>
+<dl>
+<dt>target</dt>
+	<dd>{object} The operation target object</dd>
+<dt>properties</dt>
+	<dd>{object} An associative array, providing name-value pairs.</dd>
+	<dd>An undefined value causes the property to be deleted from the target object.</dd>
+	<dd>The value type must be suitable for the specified property of the target object.</dd>
+<dt>returns</dt>
+	<dd>{object} The <tt>target</tt> object.</dd>
+</dl>
+
+<figure class="listing"><figcaption>Setting properties</figcaption><pre>
+const o = { } ;
+setProperties( o, { name: "John Smith", age: 42 } );
+</pre></figure>
+
+<!--h3--setProperties()--></div>
+
+<h3 cbc>setTagnameTargetMap()</h3><div>
+
+<p>This function is used to setup a map that associates element tagnames to injection targets. Its purpose is to reduce the effort of routing elements to different group containers ("layers").</p>
+
+<p>Syntax:</p>
+
+<pre>function setTagnameTargetMap( entries={ } )</pre>
+
+<p>Parameters:</p>
+<dl>
+<dt>entries</dt>
+	<dd>{object} An associative array with name-value pairs.</dd>
+	<dd>The value is a {string | object} type and references the injection target element.</dd>
+<dt>returns</dt>
+	<dd>{undefined} </dd>
+</dl>
+
+<p>See <a href="#example-2">example 2</a> for details.</p>
+
+<!--h3--setTagnameTargetMap()--></div>
+
+<h3 cbc>tagnameTargetMap</h3><div>
+
+<p>Used to map element tag names to injection target objects.</p>
+
+<pre>let tagnameTargetMap = { }</pre>
+
+<p>An associative array of name-value pairs. Values are of type {HTMLElement | SVGElement | string} and usually specify an SVG <tt>g</tt> container object.</p>
+
+<!--h3--tagnameTargetMap--></div>
+
+<!--h2--Programming Reference--></div>
+
+<h2 cbc="collapsed">Implementation Details</h2><div>
+
+<p>For complete implementation details, refer to the <a href="../code/core/core.js">sourcecode</a> of the module.</p>
+
+<h3 cbc>addSvgElement()</h3><div>
+
+<p>The function uses two maps to semi-automatically a suitable target object for the injection method: </p>
+
+<figure class="listing"><figcaption>The tagnameTargetMap</figcaption><pre>
+export const <hi>tagnameTargetMap</hi> = { } ;
+export const <hi>hrefTargetMap</hi> = { } ;
+</pre></figure>
+
+<p>The code determines the target object based on the <tt>href</tt> attribute of a <tt>use</tt> element, or the <tt>tagName</tt> of other elements:</p>
+
+<figure class="listing"><figcaption>Finding the injection target element</figcaption><pre>
+export function addSvgElement( ... { injectionTarget, injectionMethod= "appendChild", injectionRefNode }={ } ) {
+	...
+	if ( injectionTarget === undefined ) injectionTarget = tagName === "use" ? 
+		<hi>hrefTargetMap</hi>[ attributes.href ] : <hi>tagnameTargetMap</hi>[ tagName ] ;
+</pre></figure>
+
+<p>A string target is considered to be the ID of the target element, which must be retrieved with an additional step. If the injection target is still undefined at this point, the default object "svgRoot" is used as injection target:</p>
+
+<figure class="listing"><figcaption>The tagnameTargetMap</figcaption><pre>
+	if ( typeof injectionTarget === "string" ) injectionTarget = document.<hi>getElementById</hi>( injectionTarget ) ;
+	if ( ! injectionTarget ) injectionTarget = <hi>svgRoot</hi> ;
+</pre></figure>
+
+<p>In the next step, the <i>injection method</i> determines how the new element will be inserted. Some methods require an additional <i>reference node</i>:</p>
+
+<figure class="listing"><figcaption>Element injection</figcaption><pre>
+	switch ( <hi>injectionMethod</hi> ) {
+	case "insertAdjacentElement" :
+		injectionTarget[ injectionMethod ]( <hi>injectionRefNode</hi>, element );
+		break;
+	case "replaceChild" :
+	case "insertBefore" :
+		injectionTarget[ injectionMethod ]( element, <hi>injectionRefNode</hi> );
+		break;
+		}
+	default:  <cc>// after, append, appendChild, before, prepend, replaceWith</cc>
+		injectionTarget[ injectionMethod ]( element );
+		break;
+</pre></figure>
+
+<!--h3--addSvgElement()--></div>
+
+<!--h2--Implementation Details--></div>
+
+</body></html>
