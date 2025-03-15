@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="template-info" file-name="empty.htm" version="2025-03-14" editor="USP" />
+<meta name="author" content="USP" />
+<meta name="creation-date" content="2025-03-14" />
+<meta name="editor" content="USP" />
+<meta name="change-date" content="2025-03-14" />
+<meta name="version" content="1" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="all" />
+ 
+<meta name="tags" content="" />
+<meta name="description" content="" />
+
+<title></title>
+
+</head><body>
+
+<svg id="svgRoot" xmlns="http://www.w3.org/2000/svg" 
+	viewBox="-100 -70 220 190" width="220" height="190" 
+	stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" 
+	style="border: 1px none silver">
+
+<title></title>
+<!--
+<line x1="-100" y1="-50" x2="+100" y2="+70" />
+<line x1="50" y1="-100" x2="-70" y2="+100" />
+-->
+
+</svg>
+<script type="module">
+import { addSvgElement } from "../code/core/core.js" ;
+const line1 = addSvgElement( "line", { x1: -50, y1: -50, x2: +100, y2: +70 } ); // , { parent:svgRoot } );
+const line2 = addSvgElement( "line", { x1: -line1.y1.baseVal.value, y1: line1.x1.baseVal.value, x2: -line1.y2.baseVal.value, y2: line1.x2.baseVal.value } );
+</script>
+
+</body></html>
