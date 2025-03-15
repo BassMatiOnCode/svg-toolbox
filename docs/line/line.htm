@@ -15,18 +15,18 @@
 <script type="module" src="/inc/webcat/page-structure/tutorial-page.js" ></script>
  
 <meta name="categories" content="Projects > SVG Toolbox" />
-<meta name="tags" content="web, authoring, toolbox, SVG, JavaScript, component" />
+<meta name="tags" content="web, authoring, toolbox, SVG, JavaScript, component, line" />
 <meta name="description" content="" />
 
-<title> (SVG-Toolbox > )</title>
+<title>Line (SVG-Toolbox > Line)</title>
 
 </head><body>
 
-<h1></h1><p class="subtitle"></p>
+<h1>Line</h1><p class="subtitle">A wrapper for the SVG line element</p>
 
 <h2 cbc>Introduction</h2><div>
 
-<p></p>
+<p>The <tt>Line</tt> class is a wrapper for the SVG <tt>line</tt> element. It encapsulates the </p>
 
 <!--h2--Introduction--></div>
 
@@ -139,7 +139,37 @@
 
 <h2 cbc>Programming Reference</h2><div>
 
+
+<h3 cbc>Constructor</h3><div>
+
+<p>Syntax:</p>
+
+<pre>constructor ( { x1, y1, x2, y2, from, attributes={ }, options={ } } )</pre>
+
+<p>Parameters:</p>
+<dl>
+<dt>x1, y1, x2, y2</dt>
+	<dd>{number | undefined} Coordinates of the start and end point. An undefined value will cause the default value (0) to be used in the SVG element.</dd>
+<dt>from</dt>
+	<dd>{SVGLineElement} A reference to an SVG line element that serves as a blueprint master.</dd>
+<dt>attributes</dt>
+	<dd>{object} An associative array of name-value pairs, which are used to set attributes on the new SVG element.</dd>
+<dt>options</dt>
+	<dd>{object} An associative array of name-value pairs, which is passed to <a href="../core/core.htm#addSvgElement">addSvgElement()</a>.</dd>
+<dt>returns</dt>
+	<dd>{Line} A new instance of a <tt>Line</tt> object.</dd>
+</dl>
+
+<p>The constructor function uses named parameters, because most of them are optional. They must be supplied in an object wrapper. The constructor then uses a destructuring assignment to set the individual parameter values.</p>
+
+<figure class="listing"><figcaption>Examples</figcaption><pre>
+const lineB = new Line( { lineA } );
+const lineC = new Line( { x1: -20, x2: +20, attributes: { stroke: "green" }, options: { injectionTarget: "main" } } ) ;
+</pre></figure>
+
 <p></p>
+
+<!--h3--Constructor--></div>
 
 <h3 cbc></h3><div>
 
@@ -169,8 +199,13 @@
 
 <h2 cbc="collapsed">Implementation Details</h2><div>
 
-<p>For implementation details, refer to the <a href="">sourcecode</a> of the module.</p>
+<p>For implementation details, refer to the <a href="../code/line/line.js">sourcecode</a> of the module.</p>
 
+<h3 cbc>Detecting Deleted Elements</h3><div>
+
+<p></p>
+
+<!--h3--Detecting Deleted Elements--></div>
 <p></p>
 
 <figure class="listing"><figcaption></figcaption>
