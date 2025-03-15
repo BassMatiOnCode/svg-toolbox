@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="template-info" file-name="empty.htm" version="2024-12-20" editor="USP" />
+<meta name="author" content="USP" />
+<meta name="creation-date" content="2025-03-14" />
+<meta name="editor" content="USP" />
+<meta name="change-date" content="2025-03-14" />
+<meta name="version" content="1" />
+<meta name="sectionTitle" content="../title.svg" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="all" />
+<link rel="stylesheet" href="/inc/webcat/page-structure/tutorial-page.css" />
+<script type="module" src="/inc/webcat/page-structure/tutorial-page.js" ></script>
+ 
+<meta name="categories" content="Projects > SVG Toolbox" />
+<meta name="tags" content="web, authoring, toolbox, SVG, JavaScript, component" />
+<meta name="description" content="" />
+
+<title>SVG Toolbox (Projects)</title>
+
+</head><body>
+
+<h1>SVG Toolbox</h1><p class="subtitle">Library for working with SVG</p>
+
+<h2 cbc>Introduction</h2><div>
+
+<p>The first steps to work with SVG is usually to find a good editor tool like <a href="https://inkscape.org/">Inkscape</a>, and take off.</p>
+
+<p>Unfortunately, all these tools will teach you more or less nothing about SVG as technology, and you are left with what the editor tools have to offer.</p>
+
+<p>The SVG toolbox project supports you to work directly with SVG elements, their properties, attributes, and stylings. You typically will write SVG code for static elements, and create more dynamic elements or manipulate them with scripting.</p>
+
+<!--h2--Introduction--></div>
+
+<h2 cbc>Embedding SVG In HTML Documents</h2><div>
+
+<p>An SVG document can be embedded in an HTML document with the <tt>OBJECT</tt> elment:</p>
+
+<figure class="listing"><figcaption>Embedding SVG in an HTML document</figcaption><pre>
+&lt;object type="image/svg+xml" data="svg-document.svg"&gt;&lt;/object&gt;
+</pre></figure>
+
+<p>JavaScript code can then be embedded in the SVG document with the <tt>SCRIPT</tt> element:</p>
+
+<figure class="listing"><figcaption>Adding the content height observer</figcaption><pre>
+&lt;<hi>svg</hi> id="svgRoot" xmlns="http://www.w3.org/2000/svg" 
+	viewBox="-150 -150 300 300" width="300" height="300" &gt;
+&lt;<hi>script</hi> type="<hi>text/javascript</hi>" &gt;
+console.log( "Hello, world!" );
+&lt;/script&gt;&lt;/svg&gt;
+</pre></figure>
+
+<p>Unfortunately, the script cannot be of type "<tt>module</tt>", which is a major disadvantage from the standpoint of software architecture. However, we can use the JavaScript <tt>import()</tt> function to load a JavaScript module:</p>
+
+<figure class="listing"><figcaption>Embedding a script in SVG (<a href="svg-toolbox/demo-01.svg">demo-01.svg</a>)</figcaption><pre>
+&lt;svg id="svgRoot" xmlns="http://www.w3.org/2000/svg" 
+	viewBox="-150 -150 300 300" width="300" height="300" &gt;
+&lt;script&gt;
+<hi>import</hi> ( "../code/core/core-1.js" ).<hi>then</hi>( core => {
+	const e = core.addSvgElement( "text", { }, { textContent: "Hello, world!" }, { parent: document.getElementById( "svgRoot" ) } );
+	console.log( e );
+	<cc>/* * * Your code goes here * * */</cc>
+	} ) ;
+&lt;/script&gt;&lt;/svg&gt;
+</pre></figure>
+
+<p>Or with an <tt>async</tt>&ndash;<tt>await</tt> function:</p>
+
+<figure class="listing"><figcaption>Embedding a script in SVG (<a href="svg-toolbox/demo-02.svg">demo-02.svg</a>)</figcaption><pre>
+&lt;script&gt;
+(async ( ) =&gt; {
+	const core = await <hi>import</hi> ( "../code/core/core-1.js" ) ;
+	const e = core.addSvgElement( "text", { }, { textContent: "Hello, world!" }, { parent: document.getElementById( "svgRoot" ) } );
+	console.log( e );
+	<cc>/* * * Your code goes here * * */</cc>
+	} ) ( ) ;
+&lt;/script&gt;
+</pre></figure>
+
+<p>Unfortunately, the Edge and Chrome <tt>inspectors</tt> have big problems with showing the source code in SVG files as soon as an external script is added to the code. Instead of source code, the SVG image is shown in the source tab of the inspector. You can still single-step through the code and watch variables, but without source, this is pretty much useless.</p>
+
+<p>A workaround for this problem is to move the code out of the SVG file into an external script file; the inspector has no problems with the source code of external scripts. This external script can now be a JavaScript <tt>type="module"</tt>, but the import syntax is then must simpler:</p>
+
+<figure class="listing"><figcaption>Embedding a script in SVG (<a href="demo-03.svg">demo-03.svg</a>)</figcaption><pre>
+&lt;svg id="svgRoot" xmlns="http://www.w3.org/2000/svg" ... &gt;
+&lt;script&gt;
+import ( "./demo-03.js" );
+&lt;/script&gt;&lt;/script&gt;
+</pre></figure>
+
+<p>However, this defeats the original purpose of bundling the graphics, styles and code in a single file. Fortunately, we have another option: Wrapping the SVG element with an HTML container, like so:</p>
+
+<figure class="listing"><figcaption>Adding the content height observer</figcaption><pre>
+&lt;!DOCTYPE html&gt;
+&lt;<hi>html</hi> lang="en-US"&gt;&lt;head&gt;
+	...
+&lt;/head&gt;&lt;body&gt;
+&lt;<hi>svg</hi> id="svgRoot" xmlns="http://www.w3.org/2000/svg" ... &gt;
+	/* * * Your SVG code goes here * * */
+&lt;/svg&gt;
+&lt;<hi>script</hi> type="<hi>module</hi>"&gt;
+	/* * * Your script code goes here * * */
+&lt;/script&gt;
+&lt;/body&gt;&lt;/html&gt;
+</pre></figure>
+
+<p>Now we can exploit JavaScript modules seamlessly to work with SVG elements.</p>
+
+<p>Unfortunately, with this method we must to change the <tt>OBJECT</tt> <tt>type</tt> attribute to "text/html", an this has the effect that the object no longer resizes itself to fit the content. But this can be solved with some scripting. If you use the <a href="/webcat/content-height-observer/content-height-observer.htm>Content Height Observer</a> from the <a href="/webcat/webcat.htm">WebCAT</a> project, this only requires us to add a class name:</p>
+
+<figure class="listing"><figcaption>Adding the content height observer</figcaption><pre>
+&lt;object class="<hi>content-height-observed</hi>" type="<hi>text/html</hi>" data="demo-04.htm"&gt;&lt;/object&gt;
+</pre></figure>
+
+<p>Here is the result:</p>
+
+<object class="content-height-observed" type="text/html" data="svg-toolbox/demo-04.htm" style="border-style:none"></object>
+
+<!--h2--Embedding SVG In HTML Documents--></div>
+
+</body></html>

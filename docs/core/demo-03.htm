@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="template-info" file-name="empty.htm" version="2025-03-14" editor="USP" />
+<meta name="author" content="USP" />
+<meta name="creation-date" content="2025-03-14" />
+<meta name="editor" content="USP" />
+<meta name="change-date" content="2025-03-14" />
+<meta name="version" content="1" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="all" />
+ 
+<meta name="tags" content="" />
+<meta name="description" content="" />
+
+<title></title>
+
+</head><body>
+
+<svg id="svgRoot" xmlns="http://www.w3.org/2000/svg" 
+	viewBox="-100 -90 200 170" width="200" height="170" 
+	stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none"
+	style="border: 1px none silver">
+
+<title>Generating circles and points</title>
+
+<defs>
+	<circle id="solidPoint" r="3" stroke="none" fill="black" />
+	<circle id="hollowPoint" r="3" stroke="black" fill="white" />
+	</defs>
+
+	<!--
+<use x="10" y="10" href="#solidPoint" />
+<use x="20" y="20" href="#hollowPoint" />
+	-->
+
+<g id="grid" stroke="silver"></g>
+<g id="main" stroke="black"></g>
+<g id="points"></g>
+<g id="annotations" stroke="white" stroke-width="4" fill="black" paint-order="stroke fill markers" text-anchor="middle" dominant-baseline="central"></g>
+
+</svg>
+<script type="module">
+import { setTagnameTargetMap, setHrefTargetMap, addSvgElement } from "../code/core/core.js" ;
+
+	// Setup the target maps
+setTagnameTargetMap( { line: "main", circle: "main", text: "annotations" } );
+setHrefTargetMap( { "#solidPoint": "points", "#hollowPoint": "points" } );
+
+	// Create the drawing
+const x1 = -50 ;
+const y1 = 50 ;
+const x2 = 30 ;
+const y2 = -50 ;
+addSvgElement( "line", { x1: x1, y1: y1, x2: x2, y2: y2 } );
+addSvgElement( "use", { x: x1, y: y1, href:"#hollowPoint" } );
+addSvgElement( "use", { x: x2, y: y2, href:"#hollowPoint" } );
+addSvgElement( "text", { x: x1-15, y: y1 }, { textContent: "P1" } );
+addSvgElement( "text", { x: x2, y: y2-15 }, { textContent: "P2" } );
+</script>
+
+</body></html>
