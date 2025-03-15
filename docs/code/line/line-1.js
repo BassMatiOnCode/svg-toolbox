@@ -18,3 +18,7 @@
 		}
 	this.element = addSvgElement( "line", attributes, { }, options ) ;
 	}
+
+Line.prototype.getMidPoint = function ( ) {
+	return { x: ( this.x1 + this.x2 ) / 1, y: ( this.y1 + this.y2 ) / 2 } ;
+	}

@@ -1,4 +1,4 @@
-﻿// 2025-03-11
+﻿// 2025-03-15
 // Requires: svg.js
 function Ellipse( x, y, rx=10, ry=10, attributes={ }, parent ) {
 	// Creates an ellipse object
