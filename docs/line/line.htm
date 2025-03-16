@@ -90,6 +90,45 @@ const lineB = new Line( { x1: lineA.x1+20, y1: lineA.y1, x2: lineA.x2+20, y2: li
 
 <!--h3--Example 1--></div>
 
+<h3 cbc>Example 2: Perpendicular Line</h3><div>
+
+<p>The method <tt>perpendicularThrough( )</tt> computes the coordinates for a perpedicular line through a point. We start with an existing SVG line A:</p>
+
+<figure class="listing"><figcaption>The SVG line element</figcaption><pre>
+&lt;svg id="svgRoot" ... &gt;
+&lt;line id="LineA" x1="-50" y1="50" x2="50" y2="-40" /&gt;
+&lt;/svg&gt;
+</pre></figure>
+
+<p>Then create a <tt>Line</tt> wrapper:</p>
+
+<figure class="listing"><figcaption>The <tt>Line</tt> wrapper</figcaption><pre>
+import { Line } from "../code/line/line.js" ;
+const <hi>lineA</hi> = new Line( { <hi>from</hi>: "LineA" } );
+</pre></figure>
+
+<p>The <tt>midPoint</tt> property gives us a point structure, which is then used as reference point for the method <tt>perpendicularThrough()</tt>:</p>
+
+<figure class="listing"><figcaption>The <tt>Line</tt> wrapper</figcaption><pre>
+const <hi>midpoint</hi> = lineA.<hi>midPoint</hi>;
+{	
+	const { p1, p2 } = lineA.<hi>perpendicularThrough</hi>( midpoint, { x1: lineA.x1, x2: lineA.x2 } );
+	const <hi>lineB</hi> = new Line( { p1: <hi>p1</hi>, p2: <hi>p2</hi>, attributes: { stroke: "green" } } ) ; 
+	console.debug( lineB.slope, lineB.p1, lineB.p2 );
+	debugger;
+	}
+</pre></figure>
+
+<p>The method return the start and end points p1, p2 for a line which goes through the mid point of line A, and is perpendicular to line A:</p>
+
+<figure class="demo"><figcaption>Perpendicular line (<a href="demo-02.htm" target="_blank">demo-02.htm</a>)</figcaption>
+<object class="content-height-observed no-border" type="text/html" data="demo-02.htm"></object>
+</figure>
+
+<p>By varying the start and end point conditions for <tt>perpendicularThrough()</tt>, we can get four different lines and orientations. The demo has a <tt>debugger</tt> instruction after each variant. The lines are colored differently, and combinded with the console output, you can see how they are created and that they all have the correct slope and orientation.</p>
+
+<!--h3--Example 2: Perpendicular Line--></div>
+
 <!--h2--Examples--></div>
 
 <h2 cbc>Programming Reference</h2><div>
@@ -125,50 +164,69 @@ const lineC = new Line( { x1: -20, x2: +20, attributes: { stroke: "green" }, opt
 
 <!--h3--Constructor--></div>
 
-<h3 cbc></h3><div>
+<h3 cbc>x1, y1, x2, y2</h3><div>
+
+<p>Properties, read-write access, {number}. Coordinate values of the start and end points of the related SVGLine element.</p>
+
+<!--h3--x1, y1, x2, y2--></div>
+
+<h3 cbc>p1, p2</h3><div>
+
+<p>Properties, read-write, {Point}. Start and end points of the related SVGLine element. Internally mapped to the points x1, y1, x2, y2.</p>
+
+<!--h3--p1, p2--></div>
+
+<h3 cbc>midPoint</h3><div>
+
+<p>Property, read-only, {Point}. Returns the coordinates of the mid point between start and end points.</p>
+
+<!--h3--midPoint--></div>
+
+<h3 cbc>slope</h3><div>
+
+<p>Property, read-only, {Number}. Returns the ratio dy/dx of start and end points. Equivalent to <tt>tan( α )</tt>, with α being the angle between the line and the x-axis.</p>
+
+<!--h3--slope--></div>
+
+<h3 cbc>perpendicularThrough()</h3><div>
+
+<p>Instance method. Creates the start and end points for a perpendicular line.</p>
 
 <p>Syntax:</p>
 
-<pre></pre>
+<pre>perpendicularThrough({x,y},{x1,y1,x2,y2})</pre>
 
 <p>Parameters:</p>
 <dl>
-<dt></dt>
-	<dd>{} </dd>
+<dt>{ x, y }</dt>
+	<dd>{Point} The point through which the perpendicular will go through.</dd>
+<dt>x1, y1, x2, y2</dt>
+	<dd>{Number}, semi-optional. Conditions for the start and end points of the line.</dd>
+	<dd>Only one value for a point can be given, the corresponding other will be calculated.</dd>
 <dt>returns</dt>
-	<dd>{} </dd>
+	<dd>{TwoPoint} An object with two {Point} structures, <tt>p1</tt> and <tt>p2</tt>.</dd>
 </dl>
 
-<p></p>
+<p>Example:</p>
 
-<figure class="demo"><figcaption>A simple example (<a href="demo-1.htm" target="_blank">demo-1.htm</a>)</figcaption>
-<iframe class="content-height-observed" src="demo-1.htm"></iframe>
+<figure class="listing"><figcaption>Coordinates for a perpendicular</figcaption><pre>
+const { p1, p2 } = lineA.perpendicularThrough( {x: x0, y: x1}, { x1: lineA.x1, x2: lineA.x2 } );
+const { p3, p4 } = lineA.perpendicularThrough( lineA.midPoint, { x1: lineA.x2, y2: lineA.y1 } );
+</pre></figure>
+
+<p>Demo:</p>
+
+<figure class="demo"><figcaption>Perpendicular lines (<a href="demo-02.htm" target="_blank">demo-02.htm</a>)</figcaption>
+<object class="content-height-observed no-border" type="text/html" data="demo-02.htm"></object>
 </figure>
 
-<p></p>
-
-<!--h3----></div>
+<!--h3--perpendicularThrough()--></div>
 
 <!--h2--Programming Reference--></div>
 
 <h2 cbc="collapsed">Implementation Details</h2><div>
 
-<p>For implementation details, refer to the <a href="../code/line/line.js">sourcecode</a> of the module.</p>
-
-<h3 cbc>Detecting Deleted Elements</h3><div>
-
-<p></p>
-
-<!--h3--Detecting Deleted Elements--></div>
-<p></p>
-
-<figure class="listing"><figcaption></figcaption>
-<pre>
-<cc>// Comment</cc> 
-function <hi>name</hi> ( ) {
-	...
-	}
-</pre></figure>
+<p>For implementation details, refer to the <a href="../code/line/line.js">module sourcecode</a>.</p>
 
 <!--h2--Implementation Details--></div>
 
