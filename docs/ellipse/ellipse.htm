@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="template-info" file-name="empty.htm" version="2024-12-20" editor="USP" />
+<meta name="author" content="USP" />
+<meta name="creation-date" content="2025-03-16" />
+<meta name="editor" content="USP" />
+<meta name="change-date" content="2025-03-16" />
+<meta name="version" content="1" />
+<meta name="sectionTitle" content="../title.svg" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="all" />
+<link rel="stylesheet" href="/inc/webcat/page-structure/tutorial-page.css" />
+<script type="module" src="/inc/webcat/page-structure/tutorial-page.js" ></script>
+ 
+<meta name="categories" content="Projects > SVG Toolbox > Ellipse" />
+<meta name="tags" content="web, authoring, toolbox, SVG, JavaScript, component, module, ellipse" />
+<meta name="description" content="" />
+
+<title>Ellipse (SVG-Toolbox > Ellipse)</title>
+
+</head><body>
+
+<h1>Ellipse</h1><p class="subtitle">One of the more interesting geometric objects</p>
+
+<h2 cbc>Introduction</h2><div>
+
+<p></p>
+
+<!--h2--Introduction--></div>
+
+<h2 cbc>Using the Component</h2><div>
+
+<p>The component consists of a single file:</p>
+
+<ul>
+<li>path/to/ellipse.js</li>
+</ul>
+
+<p>Use an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import">import</a> statement to import the module and get access to the exported symbols.</p>
+
+<!--h2--Using the Component--></div>
+
+<h2 cbc>Examples</h2><div>
+
+<h3 cbc>Example 1: Creating Ellipses</h3><div>
+
+<p>To create ellipses, import the ellipse module and call the <tt>Ellipse</tt> constructor:</p>
+
+<figure class="listing"><figcaption></figcaption><pre>
+import { Ellipse } from "../code/ellipse/ellipse.js" ;
+const ellipseA = new Ellipse( { fromEllipse: "EllipseA" } ) ;
+const ellipseB = new Ellipse( { x: 50, rx: 20, ry: 90, attributes: { stroke: "red" } } ) ;
+</pre></figure>
+
+<p>The demo:</p>
+
+<figure class="demo"><figcaption>Creating ellipses (<a href="demo-01.htm" target="_blank">demo-01.htm</a>)</figcaption>
+<object class="content-height-observed no-border" type="text/html" data="demo-01.htm"></object>
+</figure>
+
+<!--h3--Example 1: Creating Ellipses--></div>
+
+<!--h2--Examples--></div>
+
+<h2 cbc>Programming Reference</h2><div>
+
+<p></p>
+
+<h3 cbc>constructor()</h3><div>
+
+<p>Syntax:</p>
+
+<pre>
+constructor({fromEllipse})
+constructor({p1,p2,fromEllipse,attributes={},options={}})
+constructor({p1,rx,ry,fromEllipse,attributes={},options={}})
+constructor({x,y,rx,ry,fromEllipse,attributes={},options={}})
+</pre>
+
+<p>Parameters:</p>
+<dl>
+<dt>fromEllipse</dt>
+	<dd>{SVGEllipseElement | string} References the SVGEllipseElement to create an Ellipse wrapper for.</dd>
+<dt>p1</dt>
+	<dd>{Point} The center point if combined with<tt>rx</tt> and <tt>ry</tt>, or the top left corner of an enclosing rectangle if combinded with<tt>p2</tt>.</dd>
+<dt>p2</dt>
+	<dd>{Point} The bottom right corner of an enclosing rectangle.</dd>
+<dt>rx, ry</dt>
+	<dd>{number} the radii of the horizontal and vertical axes.</dd>
+<dt>attributes</dt>
+	<dd>{object} An associative array with name-value pairs that define the attributes for the new element.</dd>
+<dt>options</dt>
+	<dd>{object}  An associative array with name-value pairs that provide options to <tt>addSvgElement()</tt>.</dd>
+<dt>returns</dt>
+	<dd>{Ellipse} An <tt>Ellipse</tt> object that encapsulates an <tt>SVGEllipseElement</tt>.</dd>
+</dl>
+
+<p>Examples:</p>
+
+<figure class="listing"><figcaption></figcaption><pre>
+const ellipseA = new Ellipse( { fromEllipse: "EllipseA" } ) ;
+const ellipseB = new Ellipse( { x: 50, rx: 20, ry: 90, attributes: { stroke: "red" } } ) ;
+</pre></figure>
+
+<p>Demo:</p>
+
+<figure class="demo"><figcaption>Creating Ellipses (<a href="demo-01.htm" target="_blank">demo-01.htm</a>)</figcaption>
+<object class="content-height-observed no-border" type="text/html" data="demo-01.htm"></object>
+</figure>
+
+<!--h3--constructor()--></div>
+
+<!--h2--Programming Reference--></div>
+
+<h2 cbc="collapsed">Implementation Details</h2><div>
+
+<p>For implementation details, refer to the <a href="../code/module.js">module sourcecode</a>.</p>
+
+<p></p>
+
+<figure class="listing"><figcaption></figcaption>
+<pre>
+<cc>// Comment</cc> 
+function <hi>name</hi> ( ) {
+	...
+	}
+</pre></figure>
+
+<!--h2--Implementation Details--></div>
+
+</body></html>
