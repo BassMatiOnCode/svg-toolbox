@@ -9,6 +9,7 @@ export class Circle {
 */	 constructor ( { point, x, y, r, fromCircle, attributes={ }, options={ } } ) {
 		if ( fromCircle !== undefined ) {
 			if ( typeof fromCircle === "string" ) fromCircle = document.getElementById( fromCircle );
+			point = undefined;
 			x = fromCircle.cx.baseVal.value ;
 			y = fromCircle.cy.baseVal.value ;
 			r = fromCircle.r.baseVal.value ;
@@ -18,9 +19,7 @@ export class Circle {
 		this.#x = x ;
 		this.#y = y ;
 		this.#r = r ;
-		if ( ! this.#element ) {
-			this.#element = addSvgElement( "circle", setProperties( { cx: x, cy: y, r: r }, attributes ), { }, options );
-			}
+		if ( ! this.#element ) this.#element = addSvgElement( "circle", setProperties( { cx: x, cy: y, r: r }, attributes ), { }, options );
 		}
 /**
  *	normalThroughPoint( )
@@ -35,7 +34,6 @@ export class Circle {
 		else { x2 = x ; y2 = y }
 		return { p1: { x: x1, y: y1 }, p2: { x: x2, y: y2 } };
 		}
-
 /**
  *	get p1( )
  */ get p1 ( ) {
