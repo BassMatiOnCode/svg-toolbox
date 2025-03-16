@@ -3,8 +3,7 @@
 import { addSvgElement } from "../core/core.js" ;
 
 export class Line {
-	#cx ;
-//	#x1; #y1; #x2; #y2; #element;
+	#x1; #y1; #x2; #y2; #element;
 	/**	ctor( ) 
 	*/	constructor ( { x1, y1, x2, y2, p1, p2, from, attributes={ }, options={ } } ) {
 		if ( from ) {
