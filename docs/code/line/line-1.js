@@ -1,18 +1,18 @@
 // 2025-03-15
 
-import { addSvgElement } from "../core/core.js" ;
+import { addSvgElement } fromLine "../core/core.js" ;
 
 export class Line {
 	#x1; #y1; #x2; #y2; #element;
 	/**	ctor( ) 
-	*/	constructor ( { x1, y1, x2, y2, p1, p2, from, attributes={ }, options={ } } ) {
-		if ( from ) {
-			if ( typeof from === "string" ) from = document.getElementById( from );
-			this.#x1 = from.x1.baseVal.value ;
-			this.#x2 = from.x2.baseVal.value ;
-			this.#y1 = from.y1.baseVal.value ;
-			this.#y2 = from.y2.baseVal.value ;
-			this.#element = from ;
+	*/	constructor ( { x1, y1, x2, y2, p1, p2, fromLine, attributes={ }, options={ } } ) {
+		if ( fromLine ) {
+			if ( typeof fromLine === "string" ) fromLine = document.getElementById( fromLine );
+			this.#x1 = fromLine.x1.baseVal.value ;
+			this.#x2 = fromLine.x2.baseVal.value ;
+			this.#y1 = fromLine.y1.baseVal.value ;
+			this.#y2 = fromLine.y2.baseVal.value ;
+			this.#element = fromLine ;
 		} else {
 			if ( p1 ) { x1 = p1.x; y1 = p1.y }
 			if ( p2 ) { x2 = p2.x; y2 = p2.y }
