@@ -25,7 +25,7 @@ export let tagnameTargetMap = { } ;
 	return target;
 	}
 /**
- *		setPropeties()
+ *		setProperties()
  *
 */ export function setProperties( target, properties = { } ) {
 	for ( const [ name, value ] of Object.entries( properties )) 

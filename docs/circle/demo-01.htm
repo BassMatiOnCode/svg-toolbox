@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en-US"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,13 +19,17 @@
 </head><body>
 
 <svg id="svgRoot" xmlns="http://www.w3.org/2000/svg" 
-	viewBox="-150 -150 300 300" width="300" height="300" 
+	viewBox="-50 -50 100 100" width="100" height="100" 
 	stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" 
 	style="border:1px none silver">
-
 <title>Circle Class Demo</title>
-
+<circle id="CircleA" r="40" />
 </svg>
 <script type="module">
-
-</script></body></html>
+import { Circle } from "../code/circle/circle-1.js" ;
+const circleA = new Circle( { fromCircle: "CircleA" } ) ;
+console.debug( circleA.x, circleA.y, circleA.r );
+const circleB = new Circle( { x: circleA.x + 0, y: circleA.y + 10, r: circleA.r - 10, attributes: { stroke: "red" } } );
+console.debug( circleB.x, circleB.y, circleB.r );
+</script>
+</body></html>
