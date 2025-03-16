@@ -61,6 +61,13 @@ const circleB = new Circle( { x: circleA.x + 0, y: circleA.y + 10, r: circleA.r 
 console.debug( circleB.x, circleB.y, circleB.r );
 </pre></figure>
 
+<p>Instead of individual coordinates, a <tt>Point</tt> can be specified to determine the location:</p>
+
+<figure class="listing"><figcaption></figcaption><pre>
+const circleC = new Circle( { <hi>point: circleB.p1</hi>, r: circleB.r - 10, attributes: { stroke: "green" } } );
+console.debug( circleC.x, circleC.y, circleC.r );
+</pre></figure>
+
 <p>Demo:</p>
 
 <figure class="demo"><figcaption>Creating circles (<a href="demo-01.htm" target="_blank">demo-01.htm</a>)</figcaption>
@@ -73,37 +80,161 @@ console.debug( circleB.x, circleB.y, circleB.r );
 
 <h2 cbc>Programming Reference</h2><div>
 
-<p></p>
+<h3 cbc>constructor()</h3><div>
 
-<h3 cbc></h3><div>
-
+<p>Creates a <tt>Circle</tt> object, which acts as wrapper for an <tt>SVGCircleElement</tt>.</p>
 <p>Syntax:</p>
 
-<pre></pre>
+<pre>
+constructor ( { fromCircle } )
+constructor ( { point, r, attributes={ }, options={ } } )
+constructor ( { x, y, r, attributes={ }, options={ } } )
+</pre>
 
 <p>Parameters:</p>
 <dl>
-<dt></dt>
-	<dd>{} </dd>
+<dt>fromCircle</dt>
+	<dd>{SVGCircleElement | string} A reference to an existing SVGCircleElement, or its ID string.</dd>
+<dt>point</dt>
+	<dd>{Point | object} An object with x and y members that define the location of the circle.</dd>
+<dt>x, y</dt>
+	<dd>{Number} Coordinates define the position.</dd>
+<dt>r</dt>
+	<dd>{Number} Radius of the circle</dd>
+<dt>attributes</dt>
+	<dd>{object} An associative array with name-value pairs that define the attributes for the new element.</dd>
+<dt>options</dt>
+	<dd>{object}  An associative array with name-value pairs that provide options to <tt>addSvgElement()</tt>.</dd>
 <dt>returns</dt>
-	<dd>{} </dd>
+	<dd>{Circle} A <tt>Circle</tt> element, which acts as wrapper for the SVGCircleElement.</dd>
 </dl>
 
-<p></p>
+<p>Examples:</p>
 
-<figure class="demo"><figcaption> (<a href="demo-01.htm" target="_blank">demo-01.htm</a>)</figcaption>
+<figure class="listing"><figcaption></figcaption><pre>
+const circleA = new Circle( { fromCircle: "CircleA" } ) ;
+const circleB = new Circle( { x: circleA.x + 0, y: circleA.y + 10, r: circleA.r - 10, attributes: { stroke: "red" } } );
+const circleC = new Circle( { point: circleB.p1, r: circleB.r - 10, attributes: { stroke: "green" } } );
+</pre></figure>
+
+
+<figure class="demo"><figcaption>Creating circles (<a href="demo-01.htm" target="_blank">demo-01.htm</a>)</figcaption>
 <object class="content-height-observed no-border" type="text/html" data="demo-01.htm"></object>
 </figure>
 
-<p></p>
+<!--h3--constructor()--></div>
 
-<!--h3----></div>
+<h3 cbc>normalThroughPoint()</h3><div>
+
+<p>Instance member. Creates coordinates for a normal through a point p.</p>
+<p>Syntax:</p>
+
+<pre>
+normalThroughPoint( { p, x1, y1, x2, y2 } );
+normalThroughPoint( { x, y, x1, y1, x2, y2 } )
+</pre>
+
+<p>Parameters:</p>
+<dl>
+<dt>p</dt>
+	<dd>{Point | {x:number, y:number}} The point through which the normal will go.</dd>
+<dt>x, y</dt>
+	<dd>{number} The coordinates for the point through which the normal will go.</dd>
+<dt>x1, y1</dt>
+	<dd>{number} The condition for the start point of the line.</dd>
+	<dd>Only one of these shall be given, the other one will be calculated</dd>
+<dt>x2, y2</dt>
+	<dd>{number} The condition for the end point of the line.</dd>
+	<dd>Only one of these shall be given, the other one will be calculated</dd>
+<dt>returns</dt>
+	<dd>{TwoPoints} A structure with two {Point} members, the coordinates of the calculated line.</dd>
+</dl>
+
+<p>Example:</p>
+
+<figure class="listing"><figcaption></figcaption><pre>
+const { p1, p2 } = circleA.<hi>normalThroughPoint</hi>( { <hi>x</hi>: 40, <hi>y</hi>: 30, x1: -20, x2: 50 } ) ;
+const lineA = new Line( { p1: p1, p2: p2, attributes: { stroke: "red" } } );
+const { p1: p3, p2: p4 } = circleA.<hi>normalThroughPoint</hi>( { <hi>p</hi>: { x: 20, y: -10 }, x1: 10, x2: 50 } ) ;
+const lineB = new Line( { p1: p3, p2: p4, attributes: { stroke: "green" } } );
+</pre></figure>
+
+<p>Demo:</p>
+
+<figure class="demo"><figcaption>normalThroughPoint() (<a href="demo-02.htm" target="_blank">demo-02.htm</a>)</figcaption>
+<object class="content-height-observed no-border" type="text/html" data="demo-02.htm"></object>
+</figure>
+
+<!--h3--normalThroughPoint()--></div>
+
+<h3 cbc>p1</h3><div>
+
+<p>Property, read-write, {Point}</p>
+<p>Syntax:</p>
+
+<pre>
+const position = circleA.p1 ;
+circleA.p1 = { x: 123, y: 234 };
+</pre>
+
+<p>Parameters:</p>
+<dl>
+<dt>point</dt>
+	<dd>{Point | {x: number, y: number} A structure with x and y coordinates.</dd>
+<dt>returns</dt>
+	<dd>{Point} A point structure with the position of the circle.</dd>
+</dl>
+
+<!--h3--p2--></div>
+
+<h3 cbc>r</h3><div>
+
+<p>Property, read-write, {number}. Defines or returns the circle's radius.</p>
+<p>Syntax:</p>
+
+<pre>
+const radius = circleA.r ;
+circleA.r = 123;
+</pre>
+
+<p>Parameters:</p>
+<dl>
+<dt>value</dt>
+	<dd>{number} Defines the radius of the circle.</dd>
+<dt>returns</dt>
+	<dd>{number} The radius of the circle.</dd>
+</dl>
+
+<!--h3--r--></div>
+
+<h3 cbc>x, y</h3><div>
+
+<p>Properties, read-write, {number}. Define the position of the circle.</p>
+<p>Syntax:</p>
+
+<pre>
+const x = circleA.x ;
+const y = circleA.y ;
+circleA.x = 123;
+circleA.y = 234;
+</pre>
+
+<p>Parameters:</p>
+<dl>
+<dt>value</dt>
+	<dd>{number} defines the x or y coordinate of the circle.</dd>
+<dt>returns</dt>
+	<dd>{number} The current value of the x or y coordinate.</dd>
+</dl>
+
+<!--h3--x, y--></div>
+
 
 <!--h2--Programming Reference--></div>
 
 <h2 cbc="collapsed">Implementation Details</h2><div>
 
-<p>For implementation details, refer to the <a href="">sourcecode</a> of the module.</p>
+<p>For implementation details, refer to the <a href="../code/circle.js">module sourcecode</a>.</p>
 
 <p></p>
 

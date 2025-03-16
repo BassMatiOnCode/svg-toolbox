@@ -6,7 +6,7 @@ export class Circle {
 	#x; #y; #r; #element;
 /**
  *		ctor()
-*/	 constructor ( { x, y, r, fromCircle, attributes={ }, options={ } } ) {
+*/	 constructor ( { point, x, y, r, fromCircle, attributes={ }, options={ } } ) {
 		if ( fromCircle !== undefined ) {
 			if ( typeof fromCircle === "string" ) fromCircle = document.getElementById( fromCircle );
 			x = fromCircle.cx.baseVal.value ;
@@ -14,6 +14,7 @@ export class Circle {
 			r = fromCircle.r.baseVal.value ;
 			this.#element = fromCircle ;
 			}
+		if ( point ) { x = point.x ; y = point.y }
 		this.#x = x ;
 		this.#y = y ;
 		this.#r = r ;
@@ -21,6 +22,20 @@ export class Circle {
 			this.#element = addSvgElement( "circle", setProperties( { cx: x, cy: y, r: r }, attributes ), { }, options );
 			}
 		}
+/**
+ *	normalThroughPoint( )
+ */ normalThroughPoint( { p, x, y, x1, y1, x2, y2 } ) {
+		if ( p !== undefined ) { x = p.x ; y = p.y };
+		const m = ( this.#y - y ) / ( this.#x - x );
+		if ( x1 !== undefined ) y1 = y + ( x1 - x ) * m ;
+		else if ( y1 !== undefined ) x1 = x + ( y1 - y ) / m ;
+		else { x1 = x ; y1 = y }
+		if ( x2 !== undefined ) y2 = y + ( x2 - x ) * m ;
+		else if ( y2 !== undefined ) x2 = x + ( y2 - y ) / m ;
+		else { x2 = x ; y2 = y }
+		return { p1: { x: x1, y: y1 }, p2: { x: x2, y: y2 } };
+		}
+
 /**
  *	get p1( )
  */ get p1 ( ) {
