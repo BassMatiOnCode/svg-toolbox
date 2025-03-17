@@ -6,16 +6,16 @@ export class Circle {
 	#x; #y; #r; #element;
 /**
  *		ctor()
-*/	 constructor ( { point, x, y, r, fromCircle, attributes={ }, options={ } } ) {
+*/	 constructor ( { p1, x, y, r, fromCircle, attributes={ }, options={ } } ) {
 		if ( fromCircle !== undefined ) {
 			if ( typeof fromCircle === "string" ) fromCircle = document.getElementById( fromCircle );
-			point = undefined;
+			p1 = undefined;
 			x = fromCircle.cx.baseVal.value ;
 			y = fromCircle.cy.baseVal.value ;
 			r = fromCircle.r.baseVal.value ;
 			this.#element = fromCircle ;
 			}
-		if ( point ) { x = point.x ; y = point.y }
+		if ( p1 ) { x = p1.x ; y = p1.y }
 		this.#x = x ;
 		this.#y = y ;
 		this.#r = r ;
@@ -41,9 +41,9 @@ export class Circle {
 		}
 /**
  *	set p1( )
- */ set p1 ( point ) {
-		this.x = point.x ;
-		this.y = point.y ;
+ */ set p1 ( p1 ) {
+		this.x = p1.x ;
+		this.y = p1.y ;
 		}
 /**
  *	get r( )
