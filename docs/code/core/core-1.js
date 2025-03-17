@@ -1,7 +1,11 @@
-﻿// 2025-03-14
+﻿// 2025-03-17
 
+export let acceptanceInterval = 1e-6 ;  // used for coordinate equality tests
 export let hrefTargetMap = { } ;
 export let tagnameTargetMap = { } ;
+/**
+ *	setAcceptanceInterval()
+*/	export function setAcceptanceInterval( value ) { acceptanceInterval = value }
 /**
  *	setTagnameTargetMap()
  *
@@ -59,6 +63,9 @@ export let tagnameTargetMap = { } ;
 	return element;
 	}
 /**
+ *	isSquaredEqual( )
+*/ export function isSquaredEqual( a, b ) { return Math.abs( a **2 - b ** 2 ) < acceptanceInterval }
+/**
  *		addNamedPoint( )
  *
 */ export function addNamedPoint( text, { x, y, tox=-5, toy=-10, ref="pointHollow" }={ } ) {
@@ -68,12 +75,11 @@ export let tagnameTargetMap = { } ;
 	const t = addSvgElement( "text", { x: (x || 0) + tox, y: (y || 0) + toy, "text-anchor": anchor, "dominant-baseline": baseline }, { innerHTML: text } );
 	return { point : p, text: t };
 	}
-function createEllipse( x, y, rx=10, ry=10, attributes={ }, target ) {
-	// Creates an ellipse object
-	const result = { o: addSvgElement( "ellipse", setProperties( attributes, { x: x, y: y, rx: rx, ry: ry } ), { }, target ) };
-	if ( rx > ry ) { result.a = rx; result.b = ry }
-	else { result.a = ry; result.b = rx };
-	result.c = Math.sqrt( result.a ** 2 - result.b ** 2 );  // linear excentricity
-	result.nx = result.c / result.a ;  // numerical excentricity
-	return result;
-	}
+/**
+ *	adjustInfinity( )
+ */ export function adjustInfinity( value ) {
+	switch ( value ) {
+	case Number.POSITIVE_INFINITY : return Number.MAX_SAFE_INTEGER ;
+	case Number.NEGATIVE_INFINITY : return Number.MIN_SAFE_INTEGER ;
+	default : return value ;
+	}	}
