@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="template-info" file-name="empty.htm" version="2025-03-14" editor="USP" />
+<meta name="author" content="USP" />
+<meta name="creation-date" content="2025-03-18" />
+<meta name="editor" content="USP" />
+<meta name="change-date" content="2025-03-18" />
+<meta name="version" content="1" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="all" />
+ 
+<meta name="tags" content="project, SVG, toolbox, ellipse, demo, tangent" />
+<meta name="description" content="Demonstrates a tangent through a point on the ellipse." />
+
+<title>Demo 5: Tangent Through Point</title>
+
+</head><body>
+
+<svg id="svgRoot" xmlns="http://www.w3.org/2000/svg" 
+	viewBox="-120 -40 220 120" width="220" height="120" 
+	stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" 
+	style="border:1px none silver">
+
+<title>Tangent Through Point</title>
+</svg>
+
+<script type="module">
+import { Ellipse } from "../code/ellipse/ellipse.js" ;
+import { Circle } from "../code/circle/circle.js" ;
+import { Line } from "../code/line/line.js" ;
+
+const ellipse = new Ellipse( { x: -10, y: 10, rx: 80, ry: 30 } ) ;
+const p = ellipse.pointAt( { x: 20 }, +1 );
+new Circle( { p1: p, r: 3 } );
+const slope = -1 / ellipse.slopeAt( p );
+Line.throughPoint( p, slope, { x: -50 }, { x: +50 } );
+</script></body></html>

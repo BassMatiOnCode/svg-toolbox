@@ -89,8 +89,25 @@ Line.<hi>throughPoint</hi>( p, slope, { x: -50 }, { x: +50 } );
 <object class="content-height-observed no-border" type="text/html" data="demo-05.htm"></object>
 </figure>
 
-
 <!--h3--Example 2: Tangent Through Point--></div>
+
+<h3 cbc>Example 3: Normal Through Point</h3><div>
+
+<p>To create a normal throug a point on the ellipse, we use the same technique as for a tangent through point, but we use the inverted reciproke of the slope:</p>
+
+<figure class="listing"><figcaption>Normal through point</figcaption><pre>
+const p = ellipse.pointAt( { x: 20 }, +1 );
+const slope =<hi> -1 / ellipse.slopeAt( p )</hi>;
+Line.throughPoint( p, slope, { x: -50 }, { x: +50 } );
+</pre></figure>
+
+<p>Demo:</p>
+
+<figure class="demo"><figcaption>Normal through point (<a href="demo-06.htm" target="_blank">demo-06.htm</a>)</figcaption>
+<object class="content-height-observed no-border" type="text/html" data="demo-06.htm"></object>
+</figure>
+
+<!--h3--Example 3: Normal Through Point--></div>
 
 <!--h2--Examples--></div>
 
