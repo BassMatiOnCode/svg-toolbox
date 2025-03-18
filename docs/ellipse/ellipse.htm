@@ -203,12 +203,36 @@ new Circle( { p1: ellipseA.pointAt( { y: -90 }, -1 ), r: 3, attributes: { stroke
 
 <!--h3--pointAt()--></div>
 
+<h3 cbc>slopeAt()</h3><div>
+
+<p>Returns the slope of a tangent at a point p on the ellipse.</p>
+
+<p>Syntax:</p>
+
+<pre>
+slopeAt( { p: point } )
+slopeAt( { x: point.x, y: point.y } );
+</pre>
+
+<p>Parameters:</p>
+<dl>
+<dt>p</dt>
+	<dd>{Point} Coordinates of a point on the ellipse.</dd>
+<dt>x, y</dt>
+	<dd>{number} Coordinates of a point on the ellipse.</dd>
+<dt>returns</dt>
+	<dd>{number} The slope of a tangent through that point.</dd>
+</dl>
+
+<!--h3--slopeAt()--></div>
 
 <h3 cbc>tangentAt()</h3><div>
 
 <p>Syntax:</p>
 
-<pre>tangentAt( p, { p1, p2 }={ } )</pre>
+<pre>
+tangentAt( p, p1={ }, p2={ } )
+</pre>
 
 <p>Parameters:</p>
 <dl>
@@ -216,18 +240,27 @@ new Circle( { p1: ellipseA.pointAt( { y: -90 }, -1 ), r: 3, attributes: { stroke
 	<dd>{Point} A point on the ellipse.</dd>
 <dt>p1, p2</dt>
 	<dd>{Point} Optional. Semi-defined end points for the line.</dd>
-	<dd>If a poinit is not given, it will be set equal to the point p.</dd>
+	<dd>If a point is not given, it will be set equal to the point p on the ellipse.</dd>
 <dt>returns</dt>
-	<dd>{{Point, Point}} The two end points of a line.</dd>
+	<dd>{{Point, Point}} The two completed end points p1 and p2, ready to create a line.</dd>
 </dl>
 
-<p></p>
+<p>Examples:</p>
 
-<figure class="demo"><figcaption> (<a href="demo-01.htm" target="_blank">demo-01.htm</a>)</figcaption>
-<object class="content-height-observed no-border" type="text/html" data="demo-01.htm"></object>
+<figure class="listing"><figcaption></figcaption><pre>
+const p = ellipseA.pointAt( { x: -40 }, -1 );
+new Circle( { p1: p, r: 3 } );
+const { p1, p2 } = ellipseA.tangentAt( p, { x: p.x - 50 }, { x: p.x + 50 } );
+new Line( { p1: p1, p2: p2 } );
+const { p1, p2 } = ellipseA.tangentAt( p, { y: p.y - 50 }, { y: p.y + 50 } );
+new Line( { p1: p1, p2: p2 } );
+</pre></figure>
+
+<p>Demo:</p>
+
+<figure class="demo"><figcaption>Tangent through point on the ellipse (<a href="demo-04.htm" target="_blank">demo-04.htm</a>)</figcaption>
+<object class="content-height-observed no-border" type="text/html" data="demo-04.htm"></object>
 </figure>
-
-<p></p>
 
 <!--h3--tangentAt()--></div>
 

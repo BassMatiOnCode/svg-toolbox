@@ -1,4 +1,4 @@
-﻿// 2025-03-16
+// 2025-03-16
 
 import { addSvgElement, adjustInfinity, isSquaredEqual, setProperties } from "../core/core.js" ;
 
@@ -86,15 +86,23 @@ export class Ellipse {
 		return p ;
 		}
 /**
+ *	slopeAt ( )
+ *
+*/	slopeAt( { p, x, y } ) {
+		if ( p ) { x = p.x ; y = p.y }
+		return - ( x - this.#x ) * this.#ry ** 2 / ( y - this.#y ) / this.#rx ** 2 ;
+		}
+/**
  *	tangetAt ( )
-*/	tangentAt( p, { p1, p2 }={ } ) {
-		if ( p1.x !== undefined ) p1.y = adjustInfinity( p.y - p.x / p.y * this.#ry ** 2 / this.#rx ** 2 * (p1.x - p.x ));
-		else if ( p1.y !== undefined ) p1.x = adjustInfinity( p.x - p.y / p.x * this.#rx ** 2 / this.#ry ** 2 * (p1.y - p.y ));
-		else { p1.x = p.x ; p1.y = p.y }
-		if ( p2.x !== undefined ) p2.y = adjustInfinity( p.y - p.x / p.y * this.#ry ** 2 / this.#rx ** 2 * (p2.x - p.x ));
-		else if ( p2.y === undefined ) p2.x = adjustInfinity( p.x - p.y / p.x * this.#rx ** 2 / this.#ry ** 2 * (p2.y - p.y ));
-		else { p2.x = p.x ; p2.y = p.y }
-		return {p1, p2} ;
+*/	tangentAt( p, p1={ }, p2={ } ) {
+		const m = this.slopeAt( p );
+		if ( p1.x !== undefined ) p1.y = adjustInfinity(( p1.x - p.x ) * m + p.y );
+		else if ( p1.y !== undefined ) p1.x = adjustInfinity(( p1.y - p.y ) / m + p.x );
+		else { p1.x = p.x ; p1.y = p.y };
+		if ( p2.x !== undefined ) p2.y = adjustInfinity(( p2.x - p.x ) * m + p.y );
+		else if ( p2.y !== undefined ) p2.x = adjustInfinity(( p2.y - p.y ) / m + p.x );
+		else { p2.x = p.x ; p2.y = p.y };
+		return { p1, p2 } ;
 		}
 	}
 
