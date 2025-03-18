@@ -44,7 +44,7 @@
 
 <h2 cbc>Examples</h2><div>
 
-<h3 cbc>Example 1</h3><div>
+<h3 cbc>Example 1: Creating Lines</h3><div>
 
 <p>The SVG code has a line element defined:</p>
 
@@ -88,7 +88,7 @@ const lineB = new Line( { x1: lineA.x1+20, y1: lineA.y1, x2: lineA.x2+20, y2: li
 <object class="content-height-observed no-border" type="text/html" data="demo-01.htm"></object>
 </figure>
 
-<!--h3--Example 1--></div>
+<!--h3--Example 1: Creating Lines--></div>
 
 <h3 cbc>Example 2: Perpendicular Line</h3><div>
 
@@ -129,6 +129,58 @@ const <hi>midpoint</hi> = lineA.<hi>midPoint</hi>;
 
 <!--h3--Example 2: Perpendicular Line--></div>
 
+<h3 cbc>Example 3: Lines Through Point</h3><div>
+
+<p>The static functions <tt>Line.throughPoint()</tt> and <tt>Line.throughCoords()</tt> allow to create a line through a given point p with a specified slope, from the start point p1 to the end point p2. Start and end points are semi-defined, i. e. they have either x or y members, but not both.</p>
+
+<p>The function expects a fully specified point in the first parameter, followed by the slope value (0.3):</p>
+
+<figure class="listing"><figcaption>Line through point</figcaption><pre>
+const p = { x: 20, y: 30 };
+const line = Line.throughPoint( <hi>p</hi>, <hi>0.3</hi>, { x: -50 }, { x : +50 } );
+console.log( "slope:" , ( line.y2 - line.y1 ) / ( line.x2 - line.x1 ));
+</pre></figure>
+
+<p>The last two parameters are the semi-defined start and end points.</p>
+
+<p>Two more lines throught the same point:</p>
+
+<figure class="listing"><figcaption>Line through point with different slope:</figcaption><pre>
+Line.throughPoint( p, <hi>0</hi>, { x: -50 }, { x : +50 } );
+Line.throughPoint( p, <hi>-0.3</hi>, { x: -50 }, { x : +50 } );	
+</pre></figure>
+
+<p>Demo:</p>
+
+<figure class="demo"><figcaption>Lines through point (<a href="demo-03.htm" target="_blank">demo-03.htm</a>)</figcaption>
+<object class="content-height-observed no-border" type="text/html" data="demo-03.htm"></object>
+</figure>
+
+<!--h3--Example 3: Lines Through Point--></div>
+
+<h3 cbc>Example 4: Perpendicular by Slope</h3><div>
+
+<p>The <tt>Line</tt> object has a <tt>slope</tt> property that can be used to create a perpendicular. So we create a line through a point with slope:</p>
+
+<figure class="listing"><figcaption>Line through point</figcaption><pre>
+const <hi>slope</hi> = 0.3;
+Line.throughPoint( { x: 20, y: 30 }, <hi>slope</hi>, { x: -50 }, { x : +50 } );
+</pre></figure>
+
+<p>Then we create a second line, this time with inverted negative slope:</p>
+
+<figure class="listing"><figcaption>Line through point</figcaption><pre>
+Line.throughPoint( { x: 20, y: 30 }, <hi>&minus;1/slope</hi>, { y: -50 }, { y : +50 } );
+</pre></figure>
+
+<p>And here is the result:</p>
+
+<figure class="demo"><figcaption>Perpendicular through point (<a href="demo-04.htm" target="_blank">demo-04.htm</a>)</figcaption>
+<object class="content-height-observed no-border" type="text/html" data="demo-04.htm"></object>
+</figure>
+
+<!--h3--Example 4: Perpendicular by Slope--></div>
+
 <!--h2--Examples--></div>
 
 <h2 cbc>Programming Reference</h2><div>
@@ -137,7 +189,7 @@ const <hi>midpoint</hi> = lineA.<hi>midPoint</hi>;
 
 <p>Syntax:</p>
 
-<pre>constructor ( { x1, y1, x2, y2, from, attributes={ }, options={ } } )</pre>
+<pre>constructor({x1,y1,x2,y2,from,attributes={},options={}})</pre>
 
 <p>Parameters:</p>
 <dl>
