@@ -155,6 +155,12 @@ addSvgElement( "text", { x: x2, y: y2-15 }, { textContent: "P2" } );
 
 <h2 cbc>Programming Reference</h2><div>
 
+<h3 cbc>acceptanceInterval</h3><div>
+
+<p>Property, public, read-only. Used in <a href="#isSquaredEqual">isSquaredEqual()</a> to test if two squared values are equal. Initially set to 1e-6.</p>
+
+<!--h3----></div>
+
 <h3 id="addSvgElement" cbc>addSvgElement()</h3><div>
 
 <p>Syntax:</p>
@@ -188,6 +194,25 @@ addSvgElement( "text", { x: x2, y: y2-15 }, { textContent: "P2" } );
 
 <!--h3--addSvgElement( )--></div>
 
+<h3 cbc>adjustInfinity()</h3><div>
+
+<p>Function. Converts infinity to min or max safe integer.</p>
+<p>Syntax:</p>
+
+<pre>adjustInfinity( value )</pre>
+
+<p>Parameters:</p>
+<dl>
+<dt>value</dt>
+	<dd>{number} The input value</dd>
+<dt>returns</dt>
+	<dd>{number} MIN_SAFE_INTEGER, MAX_SAFE_INTEGER or the unchanged value.</dd>
+</dl>
+
+<p>This function if usually used in computations that return vertical or horizontal lines.</p>
+
+<!--h3--adjustInfinity()--></div>
+
 <h3 cbc>hrefTargetMap</h3><div>
 
 <p>Used to map href attributes values of <tt>use</tt> elements to injection target objects.</p>
@@ -197,6 +222,41 @@ addSvgElement( "text", { x: x2, y: y2-15 }, { textContent: "P2" } );
 <p>An associative array of name-value pairs. Values are of type {HTMLElement | SVGElement | string} and usually specify an SVG <tt>g</tt> container object.</p>
 
 <!--h3--hrefTargetMap--></div>
+
+<h3 id="isSquaredEqual" cbc>isSquaredEqual()</h3><div>
+
+<p>Determines if the squared values <tt>a</tt> and <tt>b</tt> are less than <a href="#acceptanceinterval"><tt>acceptanceInterval</tt></a>.</p>
+
+<p>Syntax:</p>
+
+<pre>isSquaredEqual( a, b )</pre>
+
+<p>Parameters:</p>
+<dl>
+<dt>a, b</dt>
+	<dd>{number} The values to be tested.</dd>
+<dt>returns</dt>
+	<dd>{boolean} True if the difference of squares is less than the acceptance interval, or false otherwise.</dd>
+</dl>
+
+<!--h3--isSquaredEqual()--></div>
+
+<h3 id="acceptanceinterval" cbc>setAcceptanceInterval()</h3><div>
+
+<p>Sets the value of <tt>acceptanceInterval</tt>, which is used in <tt>isSquaredEqual()</tt>.</p>
+
+<p>Syntax:</p>
+<pre>setAcceptanceInterval( value )</pre>
+
+<p>Paremeters</p>
+<dl>
+<dt>value</dt>
+	<dd>{number} The value to set. Should be positive and greater than the expected numeric precision.</dd>
+<dt>returns</dt>
+	<dd>{undefined}</dd>
+</dl>
+
+<!--h3--setAcceptanceInterval()--></div>
 
 <h3 cbc>setAttributes()</h3><div>
 
