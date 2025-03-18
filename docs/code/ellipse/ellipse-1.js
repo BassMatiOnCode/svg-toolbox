@@ -1,36 +1,33 @@
 ﻿// 2025-03-16
 
-import { addSvgElement, setProperties } from "../core/core.js" ;
+import { addSvgElement, adjustInfinity, isSquaredEqual, setProperties } from "../core/core.js" ;
 
 export class Ellipse {
 	#a; #b; #c; #e; #orientation; #x; #y; #rx; #ry; #element;
 /**
  *	ctor( ) 
-*/	constructor ( { p, x, y, rx, ry, fromEllipse, attributes={ }, options={ } } ) {
+*/	constructor ( { p1, p2, x, y, rx, ry, fromEllipse, attributes={ }, options={ } } ) {
 		if ( fromEllipse ) {
 			if ( typeof fromEllipse === "string" ) fromEllipse = document.getElementById( fromEllipse );
-			p = undefined ;
+			p1 = undefined ;
 			x = fromEllipse.cx.baseVal.value ;
 			y = fromEllipse.cy.baseVal.value ;
 			rx = fromEllipse.rx.baseVal.value ;
 			ry = fromEllipse.ry.baseVal.value ;
 			this.#element = fromEllipse ;
 			}
-		if ( p !== undefined ) { x = p.x ; y = p.y }
-		this.#x = x ;
-		this.#y = y ;
+		if ( p1 !== undefined ) { x = p1.x ; y = p1.y }
+		// TODO: Test this!
+		if ( p2 !== undefined ) { x = ( p1.x + p2.x ) / 2 ; y = ( p1.y + p2.y ) / 2 ; rx = ( p2.x - p1.x ) / 2 ; ry = ( p2.y - p1.y ) / 2 }  
+		rx = Math.abs( rx );
+		ry = Math.abs( ry );
+		if ( ! this.#element ) this.#element = addSvgElement( "ellipse", setProperties( { cx: x, cy: y, rx: rx, ry: ry }, attributes ), { }, options );
+		this.#x = x || 0 ;
+		this.#y = y || 0 ;
 		this.#rx = rx ;
 		this.#ry = ry ;
-		if ( ! this.#element ) this.#element = addSvgElement( "ellipse", setProperties( { cx: x, cy: y, rx: rx, ry: ry }, attributes ), { }, options );
 		}
-/**
- *	calculateOrientation ( )
-*/	#calculateOrientation ( ) {
-		if ( this.#rx < this.#ry ) { this.#a = this.#ry ; this.#b = this.#rx ; this.#orientation = "vertical" }
-		else { this.#a = this.#rx ; this.#b = this.#ry ; this.#orientation = "horizontal" }
-		this.#c = Math.sqrt( this.#a ** 2 - this.#b ** 2 );
-		this.#e = this.#c / this.#a;
-		}
+		// Properties
 /** get orientation 
 */	get orientation ( ) { 
 		if ( this.#orientation === undefined ) this.#calculateOrientation( );
@@ -68,6 +65,37 @@ export class Ellipse {
 /** set rx */	set rx ( value ) { this.#rx = value ; return this }
 /** get ry */	get ry ( ) { return this.#ry }
 /** set ry */	set ry ( value ) { this.#ry = value ; return this }
+		// Methods
+/**
+ *	calculateOrientation ( )
+*/	#calculateOrientation ( ) {
+		if ( this.#rx < this.#ry ) { this.#a = this.#ry ; this.#b = this.#rx ; this.#orientation = "vertical" }
+		else { this.#a = this.#rx ; this.#b = this.#ry ; this.#orientation = "horizontal" }
+		this.#c = Math.sqrt( this.#a ** 2 - this.#b ** 2 );
+		this.#e = this.#c / this.#a;
+		}
+/**
+ *	pointAt ( )
+*/	pointAt ( p, sign=1 ) {
+		if ( p.x !== undefined ) {
+			p.y = this.#y + sign * ((isSquaredEqual( p.x - this.#x, this.#rx ) ? 0 : Math.sqrt( this.#ry ** 2 * ( 1 - (p.x - this.#x) ** 2 / this.#rx ** 2 )))) ;
+			}
+		else {
+			p.x = this.#x + sign * ((isSquaredEqual( p.y - this.#y, this.#ry ) ? 0 : Math.sqrt( this.#rx ** 2 * ( 1 - (p.y - this.#y) ** 2 / this.#ry ** 2 )))) ;
+			}
+		return p ;
+		}
+/**
+ *	tangetAt ( )
+*/	tangentAt( p, { p1, p2 }={ } ) {
+		if ( p1.x !== undefined ) p1.y = adjustInfinity( p.y - p.x / p.y * this.#ry ** 2 / this.#rx ** 2 * (p1.x - p.x ));
+		else if ( p1.y !== undefined ) p1.x = adjustInfinity( p.x - p.y / p.x * this.#rx ** 2 / this.#ry ** 2 * (p1.y - p.y ));
+		else { p1.x = p.x ; p1.y = p.y }
+		if ( p2.x !== undefined ) p2.y = adjustInfinity( p.y - p.x / p.y * this.#ry ** 2 / this.#rx ** 2 * (p2.x - p.x ));
+		else if ( p2.y === undefined ) p2.x = adjustInfinity( p.x - p.y / p.x * this.#rx ** 2 / this.#ry ** 2 * (p2.y - p.y ));
+		else { p2.x = p.x ; p2.y = p.y }
+		return {p1, p2} ;
+		}
 	}
 
 function xEllipse( x, y, rx=10, ry=10, attributes={ }, parent ) {

@@ -60,13 +60,21 @@ const ellipseB = new Ellipse( { x: 50, rx: 20, ry: 90, attributes: { stroke: "re
 <object class="content-height-observed no-border" type="text/html" data="demo-01.htm"></object>
 </figure>
 
+<p>The console output shows the ellipse characteristics:</p>
+
+<figure class="listing"><figcaption></figcaption><pre>
+Orientation: vertical
+a: 90
+b: 20
+c: 87.74964387392122
+e: 0.974996043043569
+</pre></figure>
+
 <!--h3--Example 1: Creating Ellipses--></div>
 
 <!--h2--Examples--></div>
 
 <h2 cbc>Programming Reference</h2><div>
-
-<p></p>
 
 <h3 cbc>constructor()</h3><div>
 
@@ -80,6 +88,7 @@ constructor({x,y,rx,ry,fromEllipse,attributes={},options={}})
 </pre>
 
 <p>Parameters:</p>
+
 <dl>
 <dt>fromEllipse</dt>
 	<dd>{SVGEllipseElement | string} References the SVGEllipseElement to create an Ellipse wrapper for.</dd>
@@ -111,6 +120,116 @@ const ellipseB = new Ellipse( { x: 50, rx: 20, ry: 90, attributes: { stroke: "re
 </figure>
 
 <!--h3--constructor()--></div>
+
+<h3 cbc>pointAt()</h3><div>
+
+<p>Returns a point on the ellipse that matches the specified x or y coordinate.</p>
+<p>Syntax:</p>
+
+<pre>pointAt ( p, sign=1 )</pre>
+
+<p>Parameters:</p>
+<dl>
+<dt>p</dt>
+	<dd>{Point} A semi-specified point, either <tt>p.x</tt> or <tt>p.y</tt> must be undefined; this value will be computed.</dd>
+	<dd>If the input value is outside the ellipse, NaN is returned for the computed coordinate. This usually leads to a console error message in subsequent function.</dd>
+<dt>sign</dt>
+	<dd>{+1 | -1} Determines wheter the computed coordinate is inverted (-1), or not (+1).</dd>
+<dt>returns</dt>
+	<dd>{Point} The input point p, completed with the calculated coordinate value.</dd>
+	<dd></dd>
+</dl>
+
+<p>The following example initializes a point structure with an x-coordinate, then calls <tt>pointAt()</tt> to calculate the related y-coordinate to create a circle at that point.</p>
+
+<figure class="listing"><figcaption>Points on a horizontally oriented ellipse</figcaption><pre>
+const p = { x: 10 };
+p.y = ellipseA.<hi>pointAt</hi>( p );
+new Circle( { p, r: 3 } );
+p.y *= -1 ;
+new Circle( { p, r: 3 } );
+</pre></figure>
+
+<p>The second circle is created with an inverted y-coordinate, because that is also a valid point on the ellipse.</p>
+
+<p>The sequence above can be streamlined into a single line:</p>
+
+<figure class="listing"><figcaption>Points on a horizontally oriented ellipse</figcaption><pre>
+new Circle( { ellipseA.pointAt( { x: <hi>10</hi> } ), r: 3 } );
+new Circle( { ellipseA.pointAt( { x: <hi>10</hi> }, <hi>-1</hi> ), r: 3 } );
+</pre></figure>
+
+<p>Note that the second call to <tt>pointAt()</tt> returns an inverted y-coordinate.</p>
+
+<p> Alternatively, you can specify <em>y-coordinates</em> in the <tt>p</tt> argument:</p>
+
+<figure class="listing"><figcaption>Points on a horizontally oriented ellipse</figcaption><pre>
+new Circle( { ellipseA.pointAt( { y: <hi>10</hi> } ), r: 3 } );
+</pre></figure>
+
+<p>Demo:</p>
+
+<figure class="demo"><figcaption>Points on the ellipse (<a href="demo-02.htm" target="_blank">demo-02.htm</a>)</figcaption>
+<object class="content-height-observed no-border" type="text/html" data="demo-02.htm"></object>
+</figure>
+
+<p>Note that the demo also specifies points outside of the ellipse, which leads to invalid results. Observe the console output!</p>
+
+<p>This also works on a vertically oriented ellipse:</p>
+
+<figure class="listing"><figcaption>Points on a horizontally oriented ellipse</figcaption><pre>
+const ellipseA = new Ellipse( { rx: 30, ry: 80 } ) ;
+	<cc>// specify x-coordinate</cc>
+new Circle( { p1: ellipseA.pointAt( { x: 0 } ), r: 3 } );
+new Circle( { p1: ellipseA.pointAt( { x: 10 } ), r: 3 } );
+new Circle( { p1: ellipseA.pointAt( { x: 20 } ), r: 3 } );
+new Circle( { p1: ellipseA.pointAt( { x: 30 } ), r: 3 } );
+new Circle( { p1: ellipseA.pointAt( { x: 40 } ), r: 3, attributes: { stroke: "red" } } );
+	<cc>// specify y-coordinate</cc>
+new Circle( { p1: ellipseA.pointAt( { y: 0 }, -1 ), r: 3 } );
+new Circle( { p1: ellipseA.pointAt( { y: -20 }, -1 ), r: 3 } );
+new Circle( { p1: ellipseA.pointAt( { y: -40 }, -1 ), r: 3 } );
+new Circle( { p1: ellipseA.pointAt( { y: -60 }, -1 ), r: 3 } );
+new Circle( { p1: ellipseA.pointAt( { y: -80 }, -1 ), r: 3 } );
+new Circle( { p1: ellipseA.pointAt( { y: -90 }, -1 ), r: 3, attributes: { stroke: "red" } } );
+</pre></figure>
+
+<p>Demo:</p>
+
+<figure class="demo"><figcaption>Point on vertically oriented ellipse (<a href="demo-03.htm" target="_blank">demo-03.htm</a>)</figcaption>
+<object class="content-height-observed no-border" type="text/html" data="demo-03.htm"></object>
+</figure>
+
+
+<!--h3--pointAt()--></div>
+
+
+<h3 cbc>tangentAt()</h3><div>
+
+<p>Syntax:</p>
+
+<pre>tangentAt( p, { p1, p2 }={ } )</pre>
+
+<p>Parameters:</p>
+<dl>
+<dt>p</dt>
+	<dd>{Point} A point on the ellipse.</dd>
+<dt>p1, p2</dt>
+	<dd>{Point} Optional. Semi-defined end points for the line.</dd>
+	<dd>If a poinit is not given, it will be set equal to the point p.</dd>
+<dt>returns</dt>
+	<dd>{{Point, Point}} The two end points of a line.</dd>
+</dl>
+
+<p></p>
+
+<figure class="demo"><figcaption> (<a href="demo-01.htm" target="_blank">demo-01.htm</a>)</figcaption>
+<object class="content-height-observed no-border" type="text/html" data="demo-01.htm"></object>
+</figure>
+
+<p></p>
+
+<!--h3--tangentAt()--></div>
 
 <!--h2--Programming Reference--></div>
 

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="template-info" file-name="empty.htm" version="2025-03-14" editor="USP" />
+<meta name="author" content="USP" />
+<meta name="creation-date" content="2025-03-16" />
+<meta name="editor" content="USP" />
+<meta name="change-date" content="2025-03-16" />
+<meta name="version" content="1" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="all" />
+ 
+<meta name="tags" content="project, SVG, toolbox, ellipse, demo" />
+<meta name="description" content="Demonstrates the Ellipse class." />
+
+<title>Demo 2: Points on horizontally oriented ellipse</title>
+
+</head><body>
+
+<svg id="svgRoot" xmlns="http://www.w3.org/2000/svg" 
+	viewBox="-140 -50 280 80" width="280" height="80" 
+	stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" 
+	style="border:1px solid silver">
+
+<title>Points on horizontally oriented ellipse</title>
+</svg>
+
+<script type="module">
+import { Ellipse } from "../code/ellipse/ellipse.js" ;
+import { Circle } from "../code/circle/circle.js" ;
+
+const ellipseA = new Ellipse( { x: -10, y: -10, rx: 90, ry: 20 } ) ;
+function placeCircle( x, sign ) {
+	const color = ( x > ellipseA.rx + ellipseA.x || x < ellipseA.x - ellipseA.rx ) ? "red" : "black" ;
+	new Circle( { p1: ellipseA.pointAt( { x: x }, sign ), r: 3, attributes: { stroke: color } } );
+	}
+
+	// Positive x, positive y
+placeCircle( 0 );
+placeCircle( 40 );
+placeCircle( 70 );
+placeCircle( 90 );
+	// Negative x, positive y
+placeCircle( -40 );
+placeCircle( -70 );
+placeCircle( -90 );
+placeCircle( -110 );
+	// Positive x, negative y
+placeCircle( 0, -1 );
+placeCircle( 40, -1 );
+placeCircle( 70, -1 );
+placeCircle( 100, -1 );
+	// Negative x, negative y
+placeCircle( -40, -1 );
+placeCircle( -70, -1 );
+placeCircle( -90, -1 );
+placeCircle( -120, -1 );
+	
+</script></body></html>

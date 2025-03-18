@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="template-info" file-name="empty.htm" version="2025-03-14" editor="USP" />
+<meta name="author" content="USP" />
+<meta name="creation-date" content="2025-03-16" />
+<meta name="editor" content="USP" />
+<meta name="change-date" content="2025-03-16" />
+<meta name="version" content="1" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="all" />
+ 
+<meta name="tags" content="project, SVG, toolbox, ellipse, demo" />
+<meta name="description" content="Demonstrates the Ellipse class." />
+
+<title>Demo 1: Ellipse</title>
+
+</head><body>
+
+<svg id="svgRoot" xmlns="http://www.w3.org/2000/svg" 
+	viewBox="-60 -100 140 220" width="140" height="220" 
+	stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" 
+	style="border:1px none silver">
+
+<title>Points on the vertically oriented ellipse</title>
+</svg>
+
+<script type="module">
+import { Ellipse } from "../code/ellipse/ellipse.js" ;
+import { Circle } from "../code/circle/circle.js" ;
+
+const ellipseA = new Ellipse( { x: 10, y: 20, rx: 30, ry: 80 } ) ;
+
+function placeCircleOnX( x, sign ) {
+	const color = ( x > ellipseA.rx + ellipseA.x || x < ellipseA.x - ellipseA.rx ) ? "red" : "black" ;
+	new Circle( { p1: ellipseA.pointAt( { x: x }, sign ), r: 3, attributes: { stroke: color } } );
+	}
+function placeCircleOnY( y, sign ) {
+	const color = ( y > ellipseA.ry + ellipseA.y || y < ellipseA.y - ellipseA.ry ) ? "red" : "black" ;
+	new Circle( { p1: ellipseA.pointAt( { y: y }, sign ), r: 3, attributes: { stroke: color } } );
+	}
+
+	// specify x-coordinate
+debugger;
+placeCircleOnX( 0 );
+placeCircleOnX( 10 );
+placeCircleOnX( 20 );
+placeCircleOnX( 30 );
+placeCircleOnX( 40 );
+placeCircleOnX( 60 );
+
+	// Specify y coordinate
+placeCircleOnY( 0, -1 );
+placeCircleOnY( 20, -1 );
+placeCircleOnY( 40, -1 );
+placeCircleOnY( 60, -1 );
+placeCircleOnY( 80, -1 );
+placeCircleOnY( 110, -1 );
+
+</script></body></html>
