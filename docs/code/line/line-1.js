@@ -32,11 +32,11 @@ export class Line {
  *	@param [p2] {SemiDefinedPoint} Optional end point of the line
  * 
  */ static throughCoords( x, y, s, p1={ }, p2={ }, attributes={ }, options={ }) {
-		if ( p1.x !== undefined ) p1.y = ( p1.x - x ) * s ;
-		else if ( p1.y !== undefined ) p1.x = ( p1.y - y ) / s ;
+		if ( p1.x !== undefined ) p1.y = ( p1.x - x ) * s + y;
+		else if ( p1.y !== undefined ) p1.x = ( p1.y - y ) / s + x;
 		else { p1.x = x ; y1.y = y }
-		if ( p2.x !== undefined ) p2.y = ( p2.x - x ) * s ;
-		else if ( p2.y !== undefined ) p2.x = ( p2.y - y ) / s ;
+		if ( p2.x !== undefined ) p2.y = ( p2.x - x ) * s + y;
+		else if ( p2.y !== undefined ) p2.x = ( p2.y - y ) / s + x;
 		else { p2.x = x ; y2.y = y }
 		return new Line ( { p1: p1, p2: p2, attributes, options } );
 		}
