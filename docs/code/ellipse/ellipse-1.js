@@ -90,7 +90,7 @@ export class Ellipse {
  *
 */	slopeAt( { p, x, y } ) {
 		if ( p ) { x = p.x ; y = p.y }
-		return - ( x - this.#x ) * this.#ry ** 2 / ( y - this.#y ) / this.#rx ** 2 ;
+		return ( this.#x - x ) * this.#ry ** 2 / ( y - this.#y ) / this.#rx ** 2 ;
 		}
 /**
  *	tangetAt ( )
