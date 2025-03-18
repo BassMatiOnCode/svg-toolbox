@@ -72,6 +72,26 @@ e: 0.974996043043569
 
 <!--h3--Example 1: Creating Ellipses--></div>
 
+<h3 cbc>Example 2: Tangent Through Point</h3><div>
+
+<p>To create a tangent through a point on the ellipse, we need to get a point on the ellipse, then the slope at that point, which then can be used to create a tangen line:</p>
+
+<figure class="listing"><figcaption>Tangent through point</figcaption><pre>
+const ellipse = new Ellipse( { x: -10, y: 10, rx: 80, ry: 30 } ) ;
+const p = ellipse.<hi>pointAt</hi>( { x: 20 }, +1 );
+const slope = ellipse.<hi>slopeAt</hi>( p );
+Line.<hi>throughPoint</hi>( p, slope, { x: -50 }, { x: +50 } );
+</pre></figure>
+
+<p>Demo:</p>
+
+<figure class="demo"><figcaption>Tangent through point (<a href="demo-05.htm" target="_blank">demo-05.htm</a>)</figcaption>
+<object class="content-height-observed no-border" type="text/html" data="demo-05.htm"></object>
+</figure>
+
+
+<!--h3--Example 2: Tangent Through Point--></div>
+
 <!--h2--Examples--></div>
 
 <h2 cbc>Programming Reference</h2><div>
