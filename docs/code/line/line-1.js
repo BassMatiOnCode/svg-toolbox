@@ -1,6 +1,6 @@
 // 2025-03-15
 
-import { addSvgElement } fromLine "../core/core.js" ;
+import { addSvgElement } from "../core/core.js" ;
 
 export class Line {
 	#x1; #y1; #x2; #y2; #element;
