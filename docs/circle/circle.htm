@@ -64,7 +64,7 @@ console.debug( circleB.x, circleB.y, circleB.r );
 <p>Instead of individual coordinates, a <tt>Point</tt> can be specified to determine the location:</p>
 
 <figure class="listing"><figcaption></figcaption><pre>
-const circleC = new Circle( { <hi>point: circleB.p1</hi>, r: circleB.r - 10, attributes: { stroke: "green" } } );
+const circleC = new Circle( { <hi>p1: circleB.p1</hi>, r: circleB.r - 10, attributes: { stroke: "green" } } );
 console.debug( circleC.x, circleC.y, circleC.r );
 </pre></figure>
 
@@ -87,7 +87,7 @@ console.debug( circleC.x, circleC.y, circleC.r );
 
 <pre>
 constructor ( { fromCircle } )
-constructor ( { point, r, attributes={ }, options={ } } )
+constructor ( { p1, r, attributes={ }, options={ } } )
 constructor ( { x, y, r, attributes={ }, options={ } } )
 </pre>
 
@@ -95,7 +95,7 @@ constructor ( { x, y, r, attributes={ }, options={ } } )
 <dl>
 <dt>fromCircle</dt>
 	<dd>{SVGCircleElement | string} A reference to an existing SVGCircleElement, or its ID string.</dd>
-<dt>point</dt>
+<dt>p1</dt>
 	<dd>{Point | object} An object with x and y members that define the location of the circle.</dd>
 <dt>x, y</dt>
 	<dd>{Number} Coordinates define the position.</dd>
@@ -114,7 +114,7 @@ constructor ( { x, y, r, attributes={ }, options={ } } )
 <figure class="listing"><figcaption></figcaption><pre>
 const circleA = new Circle( { fromCircle: "CircleA" } ) ;
 const circleB = new Circle( { x: circleA.x + 0, y: circleA.y + 10, r: circleA.r - 10, attributes: { stroke: "red" } } );
-const circleC = new Circle( { point: circleB.p1, r: circleB.r - 10, attributes: { stroke: "green" } } );
+const circleC = new Circle( { p1: circleB.p1, r: circleB.r - 10, attributes: { stroke: "green" } } );
 </pre></figure>
 
 
@@ -179,7 +179,7 @@ circleA.p1 = { x: 123, y: 234 };
 
 <p>Parameters:</p>
 <dl>
-<dt>point</dt>
+<dt>p1</dt>
 	<dd>{Point | {x: number, y: number} A structure with x and y coordinates.</dd>
 <dt>returns</dt>
 	<dd>{Point} A point structure with the position of the circle.</dd>

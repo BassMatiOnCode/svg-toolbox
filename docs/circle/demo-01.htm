@@ -31,7 +31,7 @@ const circleA = new Circle( { fromCircle: "CircleA" } ) ;
 console.debug( circleA.x, circleA.y, circleA.r );
 const circleB = new Circle( { x: circleA.x + 0, y: circleA.y + 10, r: circleA.r - 10, attributes: { stroke: "red" } } );
 console.debug( circleB.x, circleB.y, circleB.r );
-const circleC = new Circle( { point: circleB.p1, r: circleB.r - 10, attributes: { stroke: "green" } } );
+const circleC = new Circle( { p1: circleB.p1, r: circleB.r - 10, attributes: { stroke: "green" } } );
 console.debug( circleC.x, circleC.y, circleC.r );
 </script>
 </body></html>
