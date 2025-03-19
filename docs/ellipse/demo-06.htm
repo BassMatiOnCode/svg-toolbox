@@ -14,26 +14,34 @@
 <meta name="tags" content="project, SVG, toolbox, ellipse, demo, tangent" />
 <meta name="description" content="Demonstrates a tangent through a point on the ellipse." />
 
-<title>Demo 5: Tangent Through Point</title>
+<title>Demo 6: Tangent Through External Point</title>
 
 </head><body>
 
 <svg id="svgRoot" xmlns="http://www.w3.org/2000/svg" 
-	viewBox="-120 -40 220 120" width="220" height="120" 
+	viewBox="-120 -80 220 160" width="220" height="160" 
 	stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" 
-	style="border:1px none silver">
+	style="border:1px solid silver">
 
-<title>Tangent Through Point</title>
+<title>Tangent Through External Point</title>
 </svg>
 
 <script type="module">
-import { Ellipse } from "../code/ellipse/ellipse.js" ;
+import { Ellipse } from "../code/ellipse/ellipse-1.js" ;
 import { Circle } from "../code/circle/circle.js" ;
 import { Line } from "../code/line/line.js" ;
 
-const ellipse = new Ellipse( { x: -10, y: 10, rx: 80, ry: 30 } ) ;
-const p = ellipse.pointAt( { x: 20 }, +1 );
+const ellipse = new Ellipse( { x: 0, y: 0, rx: 80, ry: 30 } ) ;
+const p = ellipse.pointAt( { x: 30 }, +1 );
 new Circle( { p1: p, r: 3 } );
-const slope = -1 / ellipse.slopeAt( p );
-Line.throughPoint( p, slope, { x: -50 }, { x: +50 } );
+const slopeA = ellipse.slopeAt( p );
+const line = Line.throughPoint( p, -1 / slopeA, { y: -60 }, { y: +70 } );
+new Circle( { p1: line.p2, r: 3 } );
+const { slope: slopeB, rx, ry } = ellipse.slopeAtExternal( { p: line.p2 } );
+console.debug( slopeA );
+console.debug( slopeB );
+	// ellipse with new rx ry
+const ellipseB = new Ellipse( { rx: rx, ry: ry });
+const slopeC = ellipseB.slopeAt( line.p2 );
+console.log( slopeC );
 </script></body></html>

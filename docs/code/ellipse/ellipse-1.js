@@ -28,11 +28,6 @@ export class Ellipse {
 		this.#ry = ry ;
 		}
 		// Properties
-/** get orientation 
-*/	get orientation ( ) { 
-		if ( this.#orientation === undefined ) this.#calculateOrientation( );
-		return this.#orientation ; 
-		}
 /**
  *	get a ( )
 */	get a ( ) { 
@@ -57,13 +52,18 @@ export class Ellipse {
 		if ( this.#e === undefined ) this.#calculateOrientation( );
 		return this.#e ;
 		}
+/** get orientation 
+*/	get orientation ( ) { 
+		if ( this.#orientation === undefined ) this.#calculateOrientation( );
+		return this.#orientation ; 
+		}
 /** get x */	get x ( ) { return this.#x }
-/** set x */	set x ( value ) { this.#x = value ; return this }
 /** get y */	get y ( ) { return this.#y }
-/** set y */	set y ( value ) { this.#y = value ; return this }
 /** get rx */	get rx ( ) { return this.#rx }
-/** set rx */	set rx ( value ) { this.#rx = value ; return this }
 /** get ry */	get ry ( ) { return this.#ry }
+/** set x */	set x ( value ) { this.#x = value ; return this }
+/** set y */	set y ( value ) { this.#y = value ; return this }
+/** set rx */	set rx ( value ) { this.#rx = value ; return this }
 /** set ry */	set ry ( value ) { this.#ry = value ; return this }
 		// Methods
 /**
@@ -91,6 +91,26 @@ export class Ellipse {
 */	slopeAt( { p, x, y } ) {
 		if ( p ) { x = p.x ; y = p.y }
 		return ( this.#x - x ) * this.#ry ** 2 / ( y - this.#y ) / this.#rx ** 2 ;
+		}
+/**
+ *	slopeAtExternal( )
+*/	slopeAtExternal( { p, x, y } ) {
+		
+		}
+	slopeAtExternal2( { p, x, y } ) {
+		debugger;
+		if ( p ) { x = p.x ; y = p.y }
+		// Calculate the ratio b/a
+		// const m = this.ry / this.rx ; 
+		const e2 = this.b ** 2 / this.a ** 2 ;  // 1 minus e squared
+		// Calculate an a for an ellipse through p
+		const a = Math.sqrt( x ** 2 + y ** 2 / e2 );
+		const b = a * Math.sqrt( e2 ) ;
+		const result = { } ;
+		if ( this.orientation === "horizontal" ) { result.rx = a ; result.ry = b }
+		else { result.rx = b ; result.ry = a }
+		result.slope = - ( x - this.x ) * result.ry ** 2 / ( y - this.y ) / result.rx ** 2;
+		return result;
 		}
 /**
  *	tangetAt ( )

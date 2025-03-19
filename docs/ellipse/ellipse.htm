@@ -305,9 +305,15 @@ new Line( { p1: p1, p2: p2 } );
 
 <h2 cbc="collapsed">Implementation Details</h2><div>
 
-<p>For implementation details, refer to the <a href="../code/module.js">module sourcecode</a>.</p>
+<p>For the complete implementation details, refer to the <a href="../code/ellipse/ellipse.js">module sourcecode</a>.</p>
 
-<p></p>
+<h3 cbc>Normal Through External Point</h3><div>
+
+<p>The normal through an external point is one of the more difficult problems. An assumption, that we can calculate an ellipse through the external point with the same b/a ratio as the original ellipse and calculate the normal there, came up with a near-perfect solution.</p>
+
+<p>Another idea was to keep the numeric excentricity e in original and calculated ellipse contant, was ruled out because that led to even larger errors.</p>
+
+<p>The third attempt uses an approximation suggested by mathpages.com <a href="#{1]">[1]</a>.</p>
 
 <figure class="listing"><figcaption></figcaption>
 <pre>
@@ -317,6 +323,21 @@ function <hi>name</hi> ( ) {
 	}
 </pre></figure>
 
+<!--h3--Normal Through External Point--></div>
+
 <!--h2--Implementation Details--></div>
+
+<h2 cbc>References</h2><div>
+
+<dl>
+<dt id="[1]"><a href="https://www.mathpages.com/home/kmath505/kmath505.htm">Normals From A Pint To An Ellipse</a></dt>
+	<dd>on mathpages.com</dd>
+<dt id="[2]"><a href="https://math.stackexchange.com/questions/609351/number-of-normals-from-a-point-to-an-ellipse">Number of normals from a point to an ellipse</a></dt>
+	<dd>By Empy2 on math.stackexchange.com</dd>
+<dt id="[3]"><a href="https://homepage.villanova.edu/robert.jantzen/maple/ellipse/apollonius.pdf">Apollonius' Ellipse and Evolute Revisited</a></dt>
+	<dd>Frederick Hartmann, Robert Jantzen</dd>
+</dl>
+
+<!--h2--References--></div>
 
 </body></html>
