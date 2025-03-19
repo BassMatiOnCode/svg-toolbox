@@ -106,4 +106,11 @@ export class Line {
 		else { x2 = x ; y2 = y }
 		return { p1: { x: x1, y: y1 }, p2: { x: x2, y: y2 } };
 		}
-	} 
+/**
+*	pointAt( )
+*/	pointAt ( { x, y } ) {
+		if ( x !== undefined ) y = ( x - this.#x1 ) * this.slope + this.y1 ;
+		else if ( y !== undefined ) x = ( y - this.#y1 ) /  this.slope + this.x1 ;
+		return { x: x , y: y } ;
+		} 
+	}
