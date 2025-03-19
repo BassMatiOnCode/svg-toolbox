@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="template-info" file-name="empty.htm" version="2025-03-14" editor="USP" />
+<meta name="author" content="USP" />
+<meta name="creation-date" content="2025-03-19" />
+<meta name="editor" content="USP" />
+<meta name="change-date" content="2025-03-19" />
+<meta name="version" content="1" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="all" />
+ 
+<meta name="tags" content="project, SVG, toolbox, example, demo, text, component, class" />
+<meta name="description" content="Demonstrates how to create Text objects" />
+
+<title>Creating Text Objects</title>
+
+</head><body>
+
+<svg id="svgRoot" xmlns="http://www.w3.org/2000/svg" 
+	viewBox="-20 -50 250 100" width="250" height="100" 
+	stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" 
+	style="border:1px solid silver">
+
+<text id="TextA">Hello, world!</text>
+
+</svg>
+<script type="module">
+import { Text } from "../code/text/text.js" ;
+const textA = Text.from( "TextA" );
+const textB = new Text( "Welcome to my demo page!", { y: 20, attributes: { stroke: "none", fill: "black" } } ) ;
+</script></body></html>
