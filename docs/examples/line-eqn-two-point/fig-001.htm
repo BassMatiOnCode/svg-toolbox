@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="template-info" file-name="empty.htm" version="2025-03-14" editor="USP" />
+<meta name="author" content="USP" />
+<meta name="creation-date" content="2025-03-19" />
+<meta name="editor" content="USP" />
+<meta name="change-date" content="2025-03-19" />
+<meta name="version" content="1" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="all" />
+ 
+<meta name="tags" content="project, SVG, toolbox, figure, line, equation, two, point, form" />
+<meta name="description" content="Illustration of the two-point form of the line equation." />
+
+<title>Thales' Intercept Theorem</title>
+
+</head><body>
+
+<svg id="svgRoot" xmlns="http://www.w3.org/2000/svg" 
+	viewBox="-100 -80 200 160" width="200" height="160" 
+	stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" 
+	style="border:1px none silver">
+
+<style>
+	tspan.sub { baseline-shift:sub ; font-size: 70% }
+	</style>
+
+<defs>
+	<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" markerUnits="strokeWidth" orient="auto-start-reverse">
+		<path stroke="context-stroke" d="M 1 1 L 9 5 1 9" />
+		</marker>
+	</defs>
+	
+<g id="construction" stroke="darkgrey"></g>
+<g id="main">
+	<line id="LineA" x1="-80" y1="-60" x2="80" y2="60" />
+	</g>
+<g id="points" fill="white"></g>
+<g id="annotations" stroke-width="4" stroke="white" fill="black" paint-order="stroke fill" text-anchor="middle" dominant-baseline="middle" font-size="14"></g>
+
+</svg>
+
+<script type="module"> // <![CDATA[
+import { Line } from "../../code/line/line-1.js" ;
+import { Circle } from "../../code/circle/circle.js" ;
+import { setDefaultInjectionTarget } from "../../code/core/core.js" ;
+import { Text } from "../../code/text/text.js" ;
+	
+const lineA = new Line( { fromLine: "LineA" } );
+	
+setDefaultInjectionTarget( "points" );
+const p1 = lineA.pointAt( { x: -70 } );
+new Circle( { p1: p1, r: 3 } );
+const p2 = lineA.pointAt( { x: 0 } );
+new Circle( { p1: p2, r: 3 } );
+const p3 = lineA.pointAt( { x: +70 } );
+new Circle( { p1: p3, r: 3 } );
+new Circle( { x: p2.x, y: p1.y, r: 3 } );
+new Circle( { x: p3.x, y: p1.y, r: 3 } );
+
+setDefaultInjectionTarget( "annotations" );
+new Text( "P1", { x: p1.x-17, y: p1.y+5 });
+new Text( "P2", { x: p2.x-17, y: p2.y+5 });
+new Text( "P", { x: p3.x-17, y: p3.y+5 });
+new Text( "x<tspan class='sub'>2</tspan>&minus;x<tspan class='sub'>1</tspan>", { x: (p1.x+p2.x)/2, y: p1.y })
+new Text( "x&minus;x<tspan class='sub'>1</tspan>", { x: (p1.x+p3.x)/2, y: p1.y-20 })
+new Text( "y<tspan class='sub'>2</tspan>&minus;y<tspan class='sub'>1</tspan>", { x: (p2.x), y: (p1.y+p2.y)/2 })
+new Text( "y&minus;y<tspan class='sub'>1</tspan>", { x: (p3.x), y: (p1.y+p3.y)/2 })
+
+setDefaultInjectionTarget( "main" );
+new Line( { p1:p1, x2:p3.x + 20, y2:p1.y } );
+
+setDefaultInjectionTarget( "construction" );
+new Line( { p1:p2, x2:p2.x, y2:p1.y } );
+new Line( { p1:p3, x2:p3.x, y2:p1.y } );
+new Line( { x1: p1.x, y1: p1.y-20, x2: p3.x, y2: p1.y-20, attributes: { "marker-start":"url(#arrow", "marker-end": "url(#arrow)" } });
+
+// ]]
+</script></body></html>
