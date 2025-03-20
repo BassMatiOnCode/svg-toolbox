@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="template-info" file-name="empty.htm" version="2024-12-20" editor="USP" />
+<meta name="author" content="USP" />
+<meta name="creation-date" content="2025-03-19" />
+<meta name="editor" content="USP" />
+<meta name="change-date" content="2025-03-19" />
+<meta name="version" content="1" />
+<meta name="sectionTitle" content="../../title.svg" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="all" />
+<link rel="stylesheet" href="/inc/webcat/page-structure/tutorial-page.css" />
+<script type="module" src="/inc/webcat/page-structure/tutorial-page.js" ></script>
+ 
+<meta name="categories" content="Projects > SVG Toolbox > Line" />
+<meta name="tags" content="web, authoring, toolbox, SVG, JavaScript, component, line, equation, two-point" />
+<meta name="description" content="" />
+
+<title>Two-Point Form of a Line Equation (SVG-Toolbox > Line)</title>
+
+</head><body>
+
+<h1>Two-Point Form of a Line Equation</h1>
+
+<p>The two-point form of a line equation is based on intersecting lines:</p>
+
+<figure class="figure"><figcaption>Thales' intercept theorem (<a href="fig-003.htm" target="_blank">fig-003.htm</a>)</figcaption>
+<object class="content-height-observed no-border" type="image/svg+xml" data="fig-003.htm"></object>
+</figure>
+
+<p>It says that</p>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mfrac>
+	<mrow><mo>|</mo><mtext>AC</mtext><mo>|</mo></mrow>
+	<mrow><mo>|</mo><mtext>SC</mtext><mo>|</mo></mrow>
+	</mfrac>
+<mo>=</mo>
+<mfrac>
+	<mrow><mo>|</mo><mtext>BD</mtext><mo>|</mo></mrow>
+	<mrow><mo>|</mo><mtext>SD</mtext><mo>|</mo></mrow>
+	</mfrac>
+</math>
+
+<p>Translated into a cartesian coordinate system:</p>
+
+<figure class="figure"><figcaption>Two-point form of a line equation (<a href="fig-004.htm" target="_blank">fig-004.htm</a>)</figcaption>
+<object class="content-height-observed no-border" type="image/svg+xml" data="fig-004.htm"></object>
+</figure>
+
+<p>From <a href="https://en.wikipedia.org/wiki/Intercept_theorem">Thales' intercept theorem</a> follows:</p>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mfrac>
+	<mrow><mi>y</mi><mi>&minus;</mi><msub><mi>y</mi><mn>1</mn></msub></mrow>
+	<mrow><mi>x</mi><mi>&minus;</mi><msub><mi>x</mi><mn>1</mn></msub></mrow>
+	</mfrac>
+<mo>=</mo>
+<mfrac>
+	<mrow><msub><mi>y</mi><mn>2</mn></msub><mi>&minus;</mi><msub><mi>y</mi><mn>1</mn></msub></mrow>
+	<mrow><msub><mi>x</mi><mn>2</mn></msub><mi>&minus;</mi><msub><mi>x</mi><mn>1</mn></msub></mrow>
+	</mfrac>
+</math>
+
+<p>Solved for y:</p>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mi>y</mi></mrow>
+<mo>=</mo>
+<mfrac>
+	<mrow><msub><mi>y</mi><mn>2</mn></msub><mi>&minus;</mi><msub><mi>y</mi><mn>1</mn></msub>	</mrow>
+	<mrow><msub><mi>x</mi><mn>2</mn></msub><mi>&minus;</mi><msub><mi>x</mi><mn>1</mn></msub></mrow>
+	</mfrac>
+<mrow><mo>(</mo><mi>x</mi><mi>&minus;</mi><msub><mi>x</mi><mn>1</mn></msub>	<mo>)</mo></mrow>
+<mo>+</mo>
+<msub><mi>y</mi><mn>1</mn></msub>
+</math>
+
+<p>This equation requires <math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>x</mi><mn>2</mn></msub><mi>&minus;</mi><msub><mi>x</mi><mn>1</mn></msub><mo>&ne;</mo><mn>0</mn></math>.</p>
+
+<p>With <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>m</mi><mo>=</mo><mfrac>
+	<mrow><msub><mi>y</mi><mn>2</mn></msub><mi>&minus;</mi><msub><mi>y</mi><mn>1</mn></msub>	</mrow>
+	<mrow><msub><mi>x</mi><mn>2</mn></msub><mi>&minus;</mi><msub><mi>x</mi><mn>1</mn></msub></mrow>
+	</mfrac>
+</math> as <i>slope</i> or <i>gradient</i> follows:</p>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mi>y</mi></mrow>
+<mo>=</mo>
+<mi>m</mi><mrow><mo>(</mo><mi>x</mi><mi>&minus;</mi><msub><mi>x</mi><mn>1</mn></msub>	<mo>)</mo></mrow>
+<mo>+</mo>
+<msub><mi>y</mi><mn>1</mn></msub></math>
+
+<p>Going back to</p>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mi>y</mi></mrow>
+<mo>&minus;</mo>
+<msub><mi>y</mi><mn>1</mn></msub>
+<mo>=</mo>
+<mfrac>
+	<mrow><msub><mi>y</mi><mn>2</mn></msub><mi>&minus;</mi><msub><mi>y</mi><mn>1</mn></msub>	</mrow>
+	<mrow><msub><mi>x</mi><mn>2</mn></msub><mi>&minus;</mi><msub><mi>x</mi><mn>1</mn></msub></mrow>
+	</mfrac>
+<mrow><mo>(</mo><mi>x</mi><mi>&minus;</mi><msub><mi>x</mi><mn>1</mn></msub>	<mo>)</mo></mrow>
+</math>
+
+<p>Then clearing the denominator and subtracting the right side:</p>
+
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mo>(</mo><mi>y</mi><mo>&minus;</mo><msub><mi>y</mi><mn>1</mn></msub><mo>)</mo>
+<mo>(</mo><msub><mi>x</mi><mn>2</mn></msub><mi>&minus;</mi><msub><mi>x</mi><mn>1</mn></msub><mo>)</mo>
+<mo>&minus;</mo>
+<mo>(</mo><msub><mi>y</mi><mn>2</mn></msub><mi>&minus;</mi><msub><mi>y</mi><mn>1</mn></msub><mo>)</mo>
+<mo>(</mo><mi>x</mi><mi>&minus;</mi><msub><mi>x</mi><mn>1</mn></msub><mo>)</mo>
+<mo>=</mo> 
+<mn>0</mn>
+</math>
+
+<p>we get a form that is also valid for <math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>x</mi><mn>2</mn></msub><mi>&minus;</mi><msub><mi>x</mi><mn>1</mn></msub><mo>=</mo><mn>0</mn></math>.</p>
+
+<p>This form is not symmetric in the two given points, but a symmetric form can be obtained by re-grouping the constant terms:</p>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mo>(</mo>
+	<msub><mi>y</mi><mn>1</mn></msub>
+	<mo>&minus;</mo>
+	<msub><mi>y</mi><mn>2</mn></msub>
+	<mo>)</mo>
+	<mi>x</mi>
+<mo>+</mo>
+<mo>(</mo>
+	<msub><mi>x</mi><mn>2</mn></msub>
+	<mo>&minus;</mo>
+	<msub><mi>x</mi><mn>1</mn></msub>
+	<mo>)</mo>
+	<mi>y</mi>
+<mo>+</mo>
+<mo>(</mo>
+	<msub><mi>x</mi><mn>1</mn></msub>
+	<msub><mi>y</mi><mn>2</mn></msub>
+	<mo>&minus;</mo>
+	<msub><mi>x</mi><mn>2</mn></msub>
+	<msub><mi>y</mi><mn>1</mn></msub>
+	<mo>)</mo>
+<mo>=</mo>
+<mn>0</mn>
+</math>
+
+</body></html>

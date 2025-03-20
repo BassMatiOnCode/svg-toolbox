@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="template-info" file-name="empty.htm" version="2025-03-14" editor="USP" />
+<meta name="author" content="USP" />
+<meta name="creation-date" content="2025-03-19" />
+<meta name="editor" content="USP" />
+<meta name="change-date" content="2025-03-19" />
+<meta name="version" content="1" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="all" />
+ 
+<meta name="tags" content="project, SVG, toolbox, figure, line, equation, two, point, form" />
+<meta name="description" content="Illustration of the two-point form of the line equation." />
+
+<title>Point-Slope Form of a Line Equation</title>
+
+</head><body>
+
+<svg id="svgRoot" xmlns="http://www.w3.org/2000/svg" 
+	viewBox="-30 -240 280 180" width="280" height="180" 
+	stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" 
+	style="border:1px none silver">
+
+<style type="text/css">
+	tspan.sub { baseline-shift:sub ; font-size: 70% }
+	</style>
+
+<defs>
+	<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" markerUnits="strokeWidth" orient="auto-start-reverse">
+		<path stroke="context-stroke" d="M 1 1 L 9 5 1 9" />
+		</marker>
+	</defs>
+	
+<g id="grid">
+	<g id="grid-axes" stroke="grey"></g>
+	<g id="grid-lines" stroke="darkgrey"></g>
+	<g id="point-coordinate-lines" stroke="darkgrey"></g>
+	</g>
+<g id="construction" stroke="darkgrey"></g>
+<g id="main"></g>
+<g id="points" fill="white"></g>
+<g id="annotations" stroke-width="4" stroke="white" fill="black" paint-order="stroke fill" text-anchor="middle" dominant-baseline="central" font-size="14"></g>
+
+</svg>
+
+<script type="module"> // <![CDATA[
+import { Line } from "../../code/line/line-1.js" ;
+import { Circle } from "../../code/circle/circle.js" ;
+import { setDefaultInjectionTarget } from "../../code/core/core.js" ;
+import { Text } from "../../code/text/text.js" ;
+	
+	// Starting point
+setDefaultInjectionTarget( "points" );
+const p1 = new Circle( { x: 40, y: -81.53846153846155, r: 3 } );
+
+	// The line
+setDefaultInjectionTarget( "main" );
+const lineA = new Line( { x1: p1.x -20, y1: -67.6923076923077, x2: 240, y2: -220 } );
+
+	// Points
+setDefaultInjectionTarget( "points" );
+const p2 = new Circle( { p1: lineA.pointAt( { x: 130 } ), r: 3 } );
+const p3 = new Circle( { p1: lineA.pointAt( { x: 220 } ), r: 3 } );
+const p4= new Circle( { x: p2.x, y: p1.y, r: 3 } );
+const p5 = new Circle( { x: p3.x, y: p1.y, r: 3 } );
+
+	// Additional lines
+setDefaultInjectionTarget( "main" );
+new Line( { x1: p1.x - 20, x2: p3.x + 20, y1: p1.y, y2: p1.y } ) ;
+new Line( { y1: p4.y + 20, y2: p2.y - 20, x1: p2.x, x2: p2.x } ) ;
+new Line( { y1: p4.y + 20, y2: p3.y - 20, x1: p3.x, x2: p3.x } ) ;
+
+	// Annotations
+setDefaultInjectionTarget( "annotations" );
+new Text( "S", { x: p1.x - 5, y: p1.y - 12 } );
+new Text( "A", { x: p2.x - 10, y: p2.y - 10 } );
+new Text( "B", { x: p3.x - 10, y: p3.y - 10 } );
+new Text( "C", { x: p4.x - 10, y: p4.y + 10 } );
+new Text( "D", { x: p5.x - 10, y: p5.y + 10 } );
+// ]]
+</script></body></html>
