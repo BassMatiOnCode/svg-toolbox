@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="template-info" file-name="empty.htm" version="2024-12-20" editor="USP" />
+<meta name="author" content="USP" />
+<meta name="creation-date" content="2025-03-20" />
+<meta name="editor" content="USP" />
+<meta name="change-date" content="2025-03-20" />
+<meta name="version" content="1" />
+<meta name="sectionTitle" content="../../title.svg" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="all" />
+<link rel="stylesheet" href="/inc/webcat/page-structure/tutorial-page.css" />
+<script type="module" src="/inc/webcat/page-structure/tutorial-page.js" ></script>
+ 
+<meta name="categories" content="Projects > SVG Toolbox > Examples" />
+<meta name="tags" content="web, authoring, toolbox, SVG, JavaScript, example, line, intersection, equation" />
+<meta name="description" content="This example demonstrates how to calculate coordinates of the intersection point of two lines." />
+
+<title>Lines Intersection (SVG-Toolbox > Examples)</title>
+
+</head><body>
+
+<h1>Lines Intersection</h1>
+
+<p>Figure 1 shows two lines, defined by the point P<sub>1</sub> to P<sub>4</sub>, intersecting at the point P:</p>
+
+<figure class="figure"><figcaption>Intersecting lines</figcaption>
+<object class="content-height-observed no-border" type="text/html" data="fig-001.htm"></object>
+</figure>
+
+<p>We use the two-point form of a line equation:</p>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mi>y</mi></mrow>
+<mo>=</mo>
+<mfrac>
+	<mrow><msub><mi>y</mi><mn>2</mn></msub><mo>&minus;</mo><msub><mi>y</mi><mn>1</mn></msub>	</mrow>
+	<mrow><msub><mi>x</mi><mn>2</mn></msub><mo>&minus;</mo><msub><mi>x</mi><mn>1</mn></msub></mrow>
+	</mfrac>
+<mrow><mo>(</mo><mi>x</mi><mo>&minus;</mo><msub><mi>x</mi><mn>1</mn></msub>	<mo>)</mo></mrow>
+<mo>+</mo>
+<msub><mi>y</mi><mn>1</mn></msub>
+</math>
+
+<p>We a looking for an x where y for both lines is identical:</p>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mfrac>
+	<mrow><msub><mi>y</mi><mn>2</mn></msub><mo>&minus;</mo><msub><mi>y</mi><mn>1</mn></msub>	</mrow>
+	<mrow><msub><mi>x</mi><mn>2</mn></msub><mo>&minus;</mo><msub><mi>x</mi><mn>1</mn></msub></mrow>
+	</mfrac>
+<mrow><mo>(</mo><mi>x</mi><mo>&minus;</mo><msub><mi>x</mi><mn>1</mn></msub>	<mo>)</mo></mrow>
+<mo>+</mo>
+<msub><mi>y</mi><mn>1</mn></msub>
+<mo>=</mo>
+<mfrac>
+	<mrow><msub><mi>y</mi><mn>4</mn></msub><mo>&minus;</mo><msub><mi>y</mi><mn>3</mn></msub>	</mrow>
+	<mrow><msub><mi>x</mi><mn>4</mn></msub><mo>&minus;</mo><msub><mi>x</mi><mn>3</mn></msub></mrow>
+	</mfrac>
+<mrow><mo>(</mo><mi>x</mi><mo>&minus;</mo><msub><mi>x</mi><mn>3</mn></msub>	<mo>)</mo></mrow>
+<mo>+</mo>
+<msub><mi>y</mi><mn>3</mn></msub>
+</math>
+
+<p>By introducing the slope m:</p>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<msub><mi>m</mi><mn>1</mn></msub>
+<mrow><mo>(</mo><mi>x</mi><mo>&minus;</mo><msub><mi>x</mi><mn>1</mn></msub>	<mo>)</mo></mrow>
+<mo>+</mo>
+<msub><mi>y</mi><mn>1</mn></msub>
+<mo>=</mo>
+<msub><mi>m</mi><mn>2</mn></msub>
+<mrow><mo>(</mo><mi>x</mi><mo>&minus;</mo><msub><mi>x</mi><mn>3</mn></msub>	<mo>)</mo></mrow>
+<mo>+</mo>
+<msub><mi>y</mi><mn>3</mn></msub>
+</math>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<msub><mi>m</mi><mn>1</mn></msub><mi>x</mi>
+<mo>&minus;</mo>
+<msub><mi>m</mi><mn>1</mn></msub><msub><mi>x</mi><mn>1</mn></msub>
+<mo>+</mo>
+<msub><mi>y</mi><mn>1</mn></msub>
+<mo>=</mo>
+<msub><mi>m</mi><mn>2</mn></msub><mi>x</mi>
+<mo>&minus;</mo>
+<msub><mi>m</mi><mn>2</mn></msub><msub><mi>x</mi><mn>3</mn></msub>
+<mo>+</mo>
+<msub><mi>y</mi><mn>3</mn></msub>
+</math>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<msub><mi>m</mi><mn>1</mn></msub><mi>x</mi>
+<mo>&minus;</mo>
+<msub><mi>m</mi><mn>2</mn></msub><mi>x</mi>
+<mo>=</mo>
+<msub><mi>m</mi><mn>1</mn></msub><msub><mi>x</mi><mn>1</mn></msub>
+<mo>&minus;</mo>
+<msub><mi>m</mi><mn>2</mn></msub><msub><mi>x</mi><mn>3</mn></msub>
+<mo>+</mo>
+<msub><mi>y</mi><mn>3</mn></msub>
+<mo>&minus;</mo>
+<msub><mi>y</mi><mn>1</mn></msub>
+</math>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mi>x</mi>
+<mo>(</mo>
+<msub><mi>m</mi><mn>1</mn></msub>
+<mo>&minus;</mo>
+<msub><mi>m</mi><mn>2</mn></msub>
+<mo>)</mo>
+<mo>=</mo>
+<msub><mi>m</mi><mn>1</mn></msub><msub><mi>x</mi><mn>1</mn></msub>
+<mo>&minus;</mo>
+<msub><mi>m</mi><mn>2</mn></msub><msub><mi>x</mi><mn>3</mn></msub>
+<mo>+</mo>
+<msub><mi>y</mi><mn>3</mn></msub>
+<mo>&minus;</mo>
+<msub><mi>y</mi><mn>1</mn></msub>
+</math>
+
+<p>we get an equation for x:</p>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mi>x</mi>
+<mo>=</mo>
+<mfrac>
+	<mn>1</mn>
+	<mrow>
+		<msub><mi>m</mi><mn>1</mn></msub>
+		<mo>&minus;</mo>
+		<msub><mi>m</mi><mn>2</mn></msub>
+		</mrow>
+	</mfrac>
+<mrow>
+<mo lspace="5px">(</mo>
+<msub><mi>m</mi><mn>1</mn></msub><msub><mi>x</mi><mn>1</mn></msub>
+<mo>&minus;</mo>
+<msub><mi>m</mi><mn>2</mn></msub><msub><mi>x</mi><mn>3</mn></msub>
+<mo>+</mo>
+<msub><mi>y</mi><mn>3</mn></msub>
+<mo>&minus;</mo>
+<msub><mi>y</mi><mn>1</mn></msub>
+<mo>)</mo>
+</mrow>
+</math>
+
+<p>Note that the coordinates of the point P in figure 1 are actually calculated with the equation.</p>
+
+</body></html>

@@ -4,22 +4,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="template-info" file-name="empty.htm" version="2025-03-14" editor="USP" />
 <meta name="author" content="USP" />
-<meta name="creation-date" content="2025-03-19" />
+<meta name="creation-date" content="2025-03-20" />
 <meta name="editor" content="USP" />
-<meta name="change-date" content="2025-03-19" />
+<meta name="change-date" content="2025-03-20" />
 <meta name="version" content="1" />
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="all" />
  
-<meta name="tags" content="project, SVG, toolbox, figure, line, equation, two, point, form" />
-<meta name="description" content="Illustration of the two-point form of the line equation." />
+<meta name="tags" content="project, SVG, toolbox, figure, line, intersection" />
+<meta name="description" content="The intersection of two lines" />
 
-<title>Thales' Intercept Theorem</title>
+<title>Intersection of Lines</title>
 
 </head><body>
 
 <svg id="svgRoot" xmlns="http://www.w3.org/2000/svg" 
-	viewBox="-200 -200 300 300" width="300" height="300" 
+	viewBox="-150 -150 300 280" width="300" height="280" 
 	stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" 
 	style="border:1px none silver">
 
@@ -41,25 +41,32 @@
 </svg>
 
 <script type="module"> // <![CDATA[
+
 import { Line } from "../../code/line/line-1.js" ;
 import { Circle } from "../../code/circle/circle.js" ;
 import { setDefaultInjectionTarget } from "../../code/core/core.js" ;
 import { Text } from "../../code/text/text.js" ;
 	
-setDefaultInjectionTarget( "construction" );
-new Line( { x1: -180, x2: 80 } );
-new Line( { y1: 80, y2: -180 } );	
-
 setDefaultInjectionTarget( "main" );
-const lineA = new Line( { x1: -160, y1: 60, x2: 60, y2: -160 } );
+const lineA = new Line( { x1: -140, y1: 60, x2: 140, y2: -140 } );
+const lineB = new Line( { x1: -140, y1: -60, x2: 140, y2: +120 } );
 
 setDefaultInjectionTarget( "points" );
-const p1 = new Circle( { p1: lineA.pointAt( { y: 0 } ), r: 3 } );
-const p2 = new Circle( { p1: lineA.pointAt( { x: 0 } ), r: 3 } );
+const p1 = new Circle( { p1: lineA.pointAt( { x: -120 } ), r: 3 } );
+const p2 = new Circle( { p1: lineA.pointAt( { x: +120 } ), r: 3 } );
+const p3 = new Circle( { p1: lineB.pointAt( { x: -100 } ), r: 3 } );
+const p4 = new Circle( { p1: lineB.pointAt( { x: +100 } ), r: 3 } );
+	
+	// Calculating the intersection x coordinate:
+const x = 1 / (lineA.slope - lineB.slope) * ( lineA.slope * p1.x - lineB.slope * p3.x + p3.y - p1.y ) ;
+const p5 = new Circle( { p1: lineA.pointAt( { x: x } ), r: 3 } );
 
 setDefaultInjectionTarget( "annotations" );
-new Text( "O" );
-new Text( "x<tspan class='sub'>0</tspan>", { x: p1.x+3, y: p1.y+15 } );
-new Text( "y<tspan class='sub'>0</tspan>", { x: p2.x+10, y: p2.y+10 } );
+new Text( "P<tspan class='sub'>1</tspan>", { x: p1.x+3, y: p1.y+15 } );
+new Text( "P<tspan class='sub'>2</tspan>", { x: p2.x+10, y: p2.y+10 } );
+new Text( "P<tspan class='sub'>3</tspan>", { x: p3.x+3, y: p3.y+15 } );
+new Text( "P<tspan class='sub'>4</tspan>", { x: p4.x, y: p4.y+15 } );
+new Text( "P", { x: p5.x, y: p5.y - 15 } );
+
 // ]]
 </script></body></html>
