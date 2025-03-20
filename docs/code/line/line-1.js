@@ -95,6 +95,13 @@ export class Line {
  */ get p2 ( ) { return { x: this.#x2 , y: this.#y2 } }
 		// Methods
 /**
+ *	intersectionWith( )
+ *
+*/ intersectionWith( o ) {
+		if ( o instanceof Line ) return this.pointAt( { x: 1 / (this.slope - o.slope) * ( this.slope * this.x1 - o.slope * o.x1 + o.y1 - this.y1 ) } ) ;
+		else console.error( "Type not suppored" );
+		}
+/**
  *	perpendicularThrough( )
  *
  */ perpendicularThrough( { x, y }, { x1, y1, x2, y2 } ) {

@@ -56,11 +56,11 @@ const p1 = new Circle( { p1: lineA.pointAt( { x: -120 } ), r: 3 } );
 const p2 = new Circle( { p1: lineA.pointAt( { x: +120 } ), r: 3 } );
 const p3 = new Circle( { p1: lineB.pointAt( { x: -100 } ), r: 3 } );
 const p4 = new Circle( { p1: lineB.pointAt( { x: +100 } ), r: 3 } );
-	
-	// Calculating the intersection x coordinate:
-const x = 1 / (lineA.slope - lineB.slope) * ( lineA.slope * p1.x - lineB.slope * p3.x + p3.y - p1.y ) ;
-const p5 = new Circle( { p1: lineA.pointAt( { x: x } ), r: 3 } );
 
+	// Test line intersection function
+const p5 = new Circle( { p1: lineA.intersectionWith( lineB ), r: 3 } );
+
+	// Text annotations
 setDefaultInjectionTarget( "annotations" );
 new Text( "P<tspan class='sub'>1</tspan>", { x: p1.x+3, y: p1.y+15 } );
 new Text( "P<tspan class='sub'>2</tspan>", { x: p2.x+10, y: p2.y+10 } );

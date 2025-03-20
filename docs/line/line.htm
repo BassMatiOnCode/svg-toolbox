@@ -192,6 +192,7 @@ Line.throughPoint( { x: 20, y: 30 }, <hi>&minus;1/slope</hi>, { y: -50 }, { y : 
 <pre>constructor({x1,y1,x2,y2,from},attributes={},options={})</pre>
 
 <p>Parameters:</p>
+
 <dl>
 <dt>x1, y1, x2, y2</dt>
 	<dd>{number | undefined} Coordinates of the start and end point. An undefined value will cause the default value (0) to be used in the SVG element.</dd>
@@ -215,6 +216,29 @@ const lineC = new Line( { x1: -20, x2: +20, attributes: { stroke: "green" }, opt
 <p></p>
 
 <!--h3--Constructor--></div>
+
+<h3 cbc>intersectionWith()</h3><div>
+
+<p>Returns the interesction point(s) with other objects. Currently, the other object must be an instance of <tt>Line</tt>. In the future, more types will be implemented.</p>
+
+<p>Syntax:</p>
+
+<pre>intersectionWith( o )</pre>
+
+<p>Parameters</p>
+
+<dl>
+<dt>o</dt>
+	<dd>{Line} The other object intersecting this line.</dd>
+<dt>returns</dt>
+	<dd>{Point | [Point]} The intersection point(s).</dd>
+</dl>
+
+<figure class="listing"><figcaption>Example</figcaption><pre>
+const point = lineA.intersectionPoint( lineB );
+</pre></figure>
+
+<!--h3--intersectionWith()--></div>
 
 <h3 cbc>x1, y1, x2, y2</h3><div>
 
