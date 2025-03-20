@@ -1,11 +1,12 @@
 // 2025-03-15
 
-import { addSvgElement } from "../core/core.js" ;
+import { addSvgElement, setProperties } from "../core/core.js" ;
 
 export class Line {
 	#x1; #y1; #x2; #y2; #element;
-	/**	ctor( ) 
-	*/	constructor ( { x1, y1, x2, y2, p1, p2, fromLine, attributes={ }, options={ } } ) {
+	/**	
+	*	ctor( ) 
+	*/	constructor ( { x1, y1, x2, y2, p1, p2, fromLine }, attributes={ }, options={ } ) {
 		if ( fromLine ) {
 			if ( typeof fromLine === "string" ) fromLine = document.getElementById( fromLine );
 			this.#x1 = fromLine.x1.baseVal.value ;
@@ -16,11 +17,11 @@ export class Line {
 		} else {
 			if ( p1 ) { x1 = p1.x; y1 = p1.y }
 			if ( p2 ) { x2 = p2.x; y2 = p2.y }
-			attributes.x1 = this.#x1 = x1;
-			attributes.y1 = this.#y1 = y1;
-			attributes.x2 = this.#x2 = x2;
-			attributes.y2 = this.#y2 = y2;
-			this.#element = addSvgElement( "line", attributes, { }, options ) ;
+			this.#x1 = x1;
+			this.#y1 = y1;
+			this.#x2 = x2;
+			this.#y2 = y2;
+			this.#element = addSvgElement( "line", setProperties( { x1: x1, y1: y1, x2: x2, y2: y2 }, attributes ), { }, options ) ;
 		}	}
 		// Static Methods
 /**
