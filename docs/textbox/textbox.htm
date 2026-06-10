@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+
+<meta charset="utf-8" />
+<title></title>
+
+</head><body>
+
+<h1>Textbox</h1>
+
+<p>The <tt>Textbox</tt> provides an SVG <tt>g</tt> container with a <tt>rect</tt> and one or more <tt>text</tt> elements:</p>
+
+<pre>
+const r = new rect( "Textbox content string", x, y );
+target.append( r.svgElement );
+</pre>
+
+<p>This creates an SVGGElement, containing an SVGRectElement and an SVGTextElement. The rectangle provides a border, the text element shows the string in the first argument, both centered at the provided coordinates x and y. The size of the border rectangle is calculated from the extent of the text content, but can also be given explicitly:</p>
+
+<pre>
+const r = new rect( "Textbox content string", x, y, w, h );
+target.append( r.svgElement );
+</pre>
+
+<pre>
+const r = new rect( [ "This textbox", "contains", "multiple lines of text", { x : 200 , y : 500 } );
+target.append( r.svgElement );
+</pre>
+
+<p>An array of strings is translated into an array of SVGTextElements. The center position can also be given as plain object in the members x and y.</p>
+
+<pre>
+content = [ "This", "is the textbox", "content" ];
+new rect( content, x, y );
+</pre>
+
+
+
+new rect( content, x, y, w, h, attributes, options );
+new rect( content, position, size, attributes, options );
+
+
+</body></html>
